@@ -286,12 +286,12 @@ trait AE {
   //   e1 == parse2("add 6 to multiply 6 by 6")
   //   e2 == parse2("multiply 6 by add 4 to 3")
 
-  def parse2(code: String): Exp = parseExp2(code) match{
-    case Some((exp,rest)) if rest.isEmpty =>
+  def parse2(code: String): Exp = parseExp2(code) match {
+    case Some((exp, rest)) if rest.isEmpty =>
       exp
-    case Some((exp,rest)) if rest.nonEmpty =>
+    case Some((exp, rest)) if rest.nonEmpty =>
       sys.error("I DON'T KNOW THAT WORD " + code)
-      
+
     case None =>
       sys.error("I DON'T KNOW THAT WORD " + code)
   }
@@ -335,12 +335,12 @@ trait AE {
             parseBy(afterNum1) match {
               case None => None
               case Some((strBy, afterStrBy)) =>
-                parseExp2(afterStrBy) match {                  
+                parseExp2(afterStrBy) match {
                   case Some((num2, rest)) =>
                     Some(Mul(num1, num2), rest) //process calculating
-                  
+
                   case None => None
-                    
+
                 }
 
             }
@@ -372,11 +372,11 @@ trait AE {
     else
       None
   }
-  
-  def parseStrAdd(code: String): Option [(String,String)] = {
+
+  def parseStrAdd(code: String): Option[(String, String)] = {
     val strAdd = "add "
     if (code.startsWith(strAdd))
-      Some((strAdd, code.drop(strAdd.length())))      
+      Some((strAdd, code.drop(strAdd.length())))
     else
       None
   }
@@ -388,17 +388,16 @@ trait AE {
       case Some((strAnd, afterStrAnd)) =>
         parseExp2(afterStrAnd) match {
           case None => None
-          case Some((num1,afterNum1))=>
-            parseTo(afterNum1) match{
+          case Some((num1, afterNum1)) =>
+            parseTo(afterNum1) match {
               case None => None
-              case Some((strTo,afterStrTo))=>
-                parseExp2(afterStrTo) match{
-                  //"add 6 to multiply 6 by 6"
-                  case Some((num2,rest))=>
-                    Some((Add(num1,num2),rest)) //process calc
-                  
-                  case None => None 
-                   
+              case Some((strTo, afterStrTo)) =>
+                parseExp2(afterStrTo) match { //"add 6 to multiply 6 by 6"                  
+                  case Some((num2, rest)) =>
+                    Some((Add(num1, num2), rest)) //process calc
+
+                  case None => None
+
                 }
             }
         }
