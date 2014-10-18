@@ -1,0 +1,13 @@
+[0m[[0minfo[0m] [0m[32mAESpec:[0m[0m
+[0m[[0minfo[0m] [0m[32m`eval`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should evaluate arithmetic expressions correctly[0m[0m
+[0m[[0minfo[0m] [0m[32m`parseNum`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should parse a series of digits[0m[0m
+[0m[[0minfo[0m] [0m[32m`parseAdd`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should parse sums[0m[0m
+[0m[[0minfo[0m] [0m[32m`parseMul`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should parse products[0m[0m
+[0m[[0minfo[0m] [0m[32m`parse`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should parse e1 and e2[0m[0m
+[0m[[0minfo[0m] [0m[32m`parse2`[0m[0m
+[0m[[0minfo[0m] [0m[32m- should parse e1 and e2[0m[0m
