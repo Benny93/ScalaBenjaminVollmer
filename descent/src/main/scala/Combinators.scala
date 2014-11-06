@@ -316,11 +316,15 @@ trait Combinators extends AE {
   def parseProductOf2(code: String): Option[(String, String)] = {
        val whiteSpace =  oneOrMore(whitespace)
     
-       wS ~> product <~ wS ~> strOf <~ wS match {
-         
-         //???
-       }
-      
+       ((wS ~> product <~ wS) ~ (strOf <~ wS)) match {
+         case(resultParser) =>
+           resultParser(code) match{
+             case Some(((result,afterResult), rest)) => Some((afterResult, rest))
+             
+             case None => None
+           }
+       }    
+       
 
   } 
   def parseStrOf (code: String): Option[(String, String)] = {
