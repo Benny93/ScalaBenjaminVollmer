@@ -47,6 +47,8 @@
  *    Write tests for it in CombinatorsSpec.scala.
  */
 
+import sun.security.util.Length
+
 trait Combinators extends AE {
 
   /* In Exercise 2.1 (AE.scala), the methods `parseExp`,
@@ -293,6 +295,10 @@ trait Combinators extends AE {
   def whitespace: Parser[String] = parseWhiteSpace
 
   def wS: Parser[String] = whiteSpaces
+  
+  def product: Parser[String] = parseProduct
+  
+  def strOf: Parser[String] = parseStrOf 
 
   def whiteSpaces(code: String): Option[(String, String)] = {
     val wS = oneOrMore(whitespace)
@@ -305,6 +311,34 @@ trait Combinators extends AE {
       case None => None
     }
   }
+  
+  // tries to match "product of " and accept whitespace
+  def parseProductOf2(code: String): Option[(String, String)] = {
+       val whiteSpace =  oneOrMore(whitespace)
+    
+       wS ~> product <~ wS ~> strOf <~ wS match {
+         
+         //???
+       }
+      
+
+  } 
+  def parseStrOf (code: String): Option[(String, String)] = {
+    val strOf = "of"
+    if (code.startsWith(strOf))
+      Some((strOf, code.drop(strOf.length)))
+    else
+      None  
+  }
+  
+  def parseProduct(code: String): Option[(String, String)] = {
+    val product = "product"
+    if (code.startsWith(product))
+      Some((product, code.drop(product.length)))
+    else
+      None  
+  }
+  
 
   /* Scala has a parser combinator library containing |, ~, ^^,
    * <~, ~> and more.

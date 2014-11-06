@@ -60,15 +60,19 @@ class AESpec extends FlatSpec with AE {
     assert(parse2("multiply 6 by add 4 to 3") == e2)
   }
   // Your tests here
-  "`parseWhiteSpaces`" should "only parse white space" in {
+  
+  /*
+  "`parseWhiteSpace`" should "only parse white space" in {
     assert(parseWhiteSpace("hallo") == Some("hallo","hallo"))
     assert(parseWhiteSpace(" hallo") == Some((" ", "hallo")))
     assert(parseWhiteSpace("    hallo   ") == Some(("    ", "hallo   ")))
     assert(parseWhiteSpace("hallo   ") == Some(("hallo   ", "hallo   ")))
     
   }
+  * 
+  */
   "`parseProductOf`" should "ignore whitespace" in {
-    assert(parseProductOf("product of 1 and 2") == Some("product of ","1 and 2"))
+    assert(parseProductOf("  product   of 1 and 2") == Some("product of ","1 and 2"))
     
     
   }

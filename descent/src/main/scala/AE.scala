@@ -194,8 +194,11 @@ trait AE {
       Some((productOf, code.drop(productOf.length)))
     else
       None
+      
 
-  }
+  }  
+  
+  
   //parsing of one whitespace char
   def parseWhiteSpace(code: String): Option[(String, String)] = {
     val whiteSpace = " "
