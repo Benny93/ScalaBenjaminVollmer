@@ -188,12 +188,37 @@ trait AE {
 
   // tries to match "product of "
   def parseProductOf(code: String): Option[(String, String)] = {
+
     val productOf = "product of "
     if (code.startsWith(productOf))
       Some((productOf, code.drop(productOf.length)))
     else
       None
+
   }
+  //parsing of one whitespace char
+  def parseWhiteSpace(code: String): Option[(String, String)] = {
+    val whiteSpace = " "
+    if (code.startsWith(whiteSpace))
+      Some((whiteSpace, code.drop(whiteSpace.length)))
+    else
+      None
+
+  }
+
+  /*Parsing multiple whitespaces via pattern*/
+  /*
+     def parseWhiteSpace(code: String): Option[(String, String)] = {
+    val Pattern = "^(\\s+).+".r
+    code match {
+      case Pattern(wS) =>
+        Some((wS, code.drop(wS.length())))
+      case otherwise =>
+        Some((code,code)) //return whitespaces
+    }  
+      
+  }   
+    */
 
   def parseMul(code: String): Option[(Mul, String)] = {
 
