@@ -36,8 +36,8 @@ class CombinatorsSpec extends FlatSpec with Combinators {
   def testMul(parseMul: Parser[Exp]): Unit = {
     
     val e2code = "product of 6 and sum of 4 and 3"
-    assert(parseMul3(e2code) == Some((e2, "")))
-    assert(parseMul4(e2code) == Some((e2, "")))
+    assert(parseMul(e2code) == Some((e2, "")))
+    assert(parseMul(e2code) == Some((e2, "")))
   }
 
   "The `sequence` combinator" should "work for `parseMul3`" in testMul(parseMul3)
@@ -75,8 +75,24 @@ class CombinatorsSpec extends FlatSpec with Combinators {
           Add(Num(2), Num(2)),
           Add(Num(3), Num(3))),
           "rd power of 2")))
+     assert(nums("abcdefg") == None)    
   }
-
+  
+   "The `oneOrMore` combinator" should "build parsers with whitespaces and handle exp" in {
+     
+     val nums = oneOrMore(exp)
+     assert(nums("product of 1 and 1product of 2 and 2product of 3 and 3rd power of 2") ==
+      Some(
+        (List(
+          Mul(Num(1), Num(1)),
+          Mul(Num(2), Num(2)),
+          Mul(Num(3), Num(3))),
+          "rd power of 2")))
+          
+          
+          
+   }
+  	
   /* Task 2.2.5: Replace `pending` by a real test for `parse3`. */
   "`parse3`" should "parse expressions with spaces between words" in {   
 

@@ -71,11 +71,7 @@ class AESpec extends FlatSpec with AE {
   }
   * 
   */
-  "`parseProductOf`" should "ignore whitespace" in {
-    assert(parseProductOf("  product   of 1 and 2") == Some("product of ","1 and 2"))
-    
-    
-  }
+  
   
 
   

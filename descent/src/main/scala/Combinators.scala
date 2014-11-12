@@ -48,6 +48,7 @@
  */
 
 import sun.security.util.Length
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Whitespace
 
 trait Combinators extends AE {
 
@@ -274,12 +275,13 @@ trait Combinators extends AE {
   def exp: Parser[Exp] = add | mul | num
 
   def add: Parser[Exp] =
-    ((sumOf ~> exp <~ and) ~ exp) ^^ {
+    (((sum <~ wS) ~ (strOf <~ wS)) ~> exp <~ (wS ~> and2 <~ wS)) ~ exp ^^ {
+    
       case (lhs, rhs) => Add(lhs, rhs)
     }
 
   def mul: Parser[Exp] =
-    (productOf ~> exp <~ and) ~ exp ^^ {
+    (((product <~ wS) ~ (strOf <~ wS)) ~> exp <~ (wS ~> and2 <~ wS)) ~ exp ^^ {
       case (lhs, rhs) => Mul(lhs, rhs)
     }
 
@@ -295,54 +297,65 @@ trait Combinators extends AE {
   def whitespace: Parser[String] = parseWhiteSpace
 
   def wS: Parser[String] = whiteSpaces
-  
+
   def product: Parser[String] = parseProduct
+
+  def sum: Parser[String] = parseSum
+
+  def strOf: Parser[String] = parseStrOf
   
-  def strOf: Parser[String] = parseStrOf 
+  def and2: Parser[String] = parseAnd2
 
   def whiteSpaces(code: String): Option[(String, String)] = {
     val wS = oneOrMore(whitespace)
 
     wS(code) match {
       case Some((parsList, rest)) =>
-        println("whitespaces: " + combineString(parsList))
-        Some(combineString(parsList), rest)
-        
+        //Some(combineString(parsList), rest)
+      	Some("",rest)
       case None => None
     }
   }
-  
-  // tries to match "product of " and accept whitespace
-  def parseProductOf2(code: String): Option[(String, String)] = {
-       val whiteSpace =  oneOrMore(whitespace)
-    
-       ((wS ~> product <~ wS) ~ (strOf <~ wS)) match {
-         case(resultParser) =>
-           resultParser(code) match{
-             case Some(((result,afterResult), rest)) => Some((afterResult, rest))
-             
-             case None => None
-           }
-       }    
-       
 
+  // tries to match "product of " and accept whitespace
+
+  /* no more needed
+  def parseProductOf2(): Parser[(String,String)] = {     
+       ((product <~ whiteSpaces ) ~ strOf)
   } 
-  def parseStrOf (code: String): Option[(String, String)] = {
+  */
+
+  def parseStrOf(code: String): Option[(String, String)] = {
     val strOf = "of"
     if (code.startsWith(strOf))
       Some((strOf, code.drop(strOf.length)))
     else
-      None  
+      None
   }
-  
+
   def parseProduct(code: String): Option[(String, String)] = {
     val product = "product"
     if (code.startsWith(product))
       Some((product, code.drop(product.length)))
     else
-      None  
+      None
+  }
+
+  def parseSum(code: String): Option[(String, String)] = {
+    val sum = "sum"
+    if (code.startsWith(sum))
+      Some((sum, code.drop(sum.length)))
+    else
+      None
   }
   
+  def parseAnd2(code: String): Option[(String, String)] = {
+    val and = "and"
+    if (code.startsWith(and))
+      Some((and, code.drop(and.length)))
+    else
+      None
+  }
 
   /* Scala has a parser combinator library containing |, ~, ^^,
    * <~, ~> and more.
@@ -390,27 +403,22 @@ trait Combinators extends AE {
    * least once. In other words, `oneOrMore(parser)` should never
    * produce an empty list as result.
    */
-  def oneOrMore[A](parser: => Parser[A]): Parser[List[A]] =
-    input => parser(input) match {
+  def oneOrMore[A](parser: => Parser[A]): Parser[List[A]] = {
+    val zOM = zeroOrMore(parser)
 
-      case None => None // no empty list
-
-      case Some((firstResult, afterFirstResult)) =>
-        oneOrMore(parser)(afterFirstResult) match {
-          case Some((otherResults, afterOtherResults)) =>
-            Some((firstResult :: otherResults, afterOtherResults))
-
-          case None =>
-            Some((List(firstResult), afterFirstResult))
-        }
+    (parser ~ zOM) ^^ {
+      case (a, b) =>
+        b.::(a)
     }
+   
+  }
 
   /* Parse arithmetic expressions, allowing multiple whitespace
    * characters between words. For example:
    *
    * parse3(" sum    of     1   and 1 ") == Add(Num(1), Num(1))
    */
-  def parse3(code: String): Exp = {	
+  def parse3(code: String): Exp = {
     /*My idea here was, that exp() has no to accept whitespace, but throw them away, as they 
      *are not needed for the final expression. The same processes that happens when the parser has
      *to accept a string like "product of ". A huge problem are whitespace between words of one
@@ -419,9 +427,15 @@ trait Combinators extends AE {
      *  -> Make two parsers out of product of for "product" and for "of"?
      *  OR
      *  -> accept whitespace while parsing the productOf string ?
+     *  
+     *   As solution I had to redefine the grammer and take use of the zeroAndMore and the OneAndMore whitspace parser   
+     *    
      *    */
-    
-	exp(code) match {
+    val zOM = zeroOrMore(whitespace)
+
+    val parser3 = (zOM ~> exp) <~ zOM //Cut away the whitespace of the beginning and the end of the sentence
+
+    parser3(code) match { //Use this parser
 
       case Some((exp1, rest)) if rest.isEmpty =>
         exp1
@@ -432,9 +446,15 @@ trait Combinators extends AE {
         sys.error("not an expression: " + code)
     }
   }
+  
+  
+  //Just for scala training
   /*Combine Parsers using recursive function.*/
   def combineParsers[A](plist: List[Parser[A]]): Parser[A] = plist.head ~> combineParsers(plist.tail)
   /*Combine Strings*/
   def combineString(list: List[String]): String = list.head + combineString(list.tail)
+    
+  
+  
 
 }
