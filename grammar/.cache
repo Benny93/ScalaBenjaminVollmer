@@ -1,0 +1,207 @@
+format version: 5
+output mode:
+1 items
+0 -> multiple
+output directories:
+1 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin
+compile options:
+6 items
+0 -> -javabootclasspath
+1 -> /Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/Extensions/DBusJava.jar:/Library/Java/Extensions/RXTXcomm.jar:/System/Library/Java/Extensions/AppleScriptEngine.jar:/System/Library/Java/Extensions/dns_sd.jar:/System/Library/Java/Extensions/j3daudio.jar:/System/Library/Java/Extensions/j3dcore.jar:/System/Library/Java/Extensions/j3dutils.jar:/System/Library/Java/Extensions/jai_codec.jar:/System/Library/Java/Extensions/jai_core.jar:/System/Library/Java/Extensions/mlibwrapper_jai.jar:/System/Library/Java/Extensions/MRJToolkit.jar:/System/Library/Java/Extensions/QTJava.zip:/System/Library/Java/Extensions/vecmath.jar
+2 -> -bootclasspath
+3 -> /Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar
+4 -> -encoding
+5 -> UTF-8
+javac options:
+0 items
+compiler version:
+1 items
+0 -> 2.11.2
+compile order:
+1 items
+0 -> Mixed
+name hashing:
+1 items
+0 -> false
+products:
+37 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$digitsParser$1.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$digitsParser$2.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$keywordParser$1.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$keywordParser$2.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$parseNonterminal$1.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$parseNonterminal$2.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Branch$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Branch.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Choice$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Choice.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Grammar$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Grammar.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Leaf$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Leaf.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Nonterminal$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Nonterminal.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$RuleRHS$class.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$RuleRHS.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Sequence$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Sequence.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Terminal$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Terminal.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Tree.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Branch$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Branch.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Leaf$.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Leaf.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Tree.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$$anonfun$parseRegex$1.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$$anonfun$parseString$1.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$ParserOps.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$class.class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators.class
+binary dependencies:
+6 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar
+direct source dependencies:
+2 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala
+direct external dependencies:
+0 items
+public inherited source dependencies:
+2 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> /Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala
+public inherited external dependencies:
+0 items
+member reference internal dependencies:
+0 items
+member reference external dependencies:
+0 items
+inheritance internal dependencies:
+0 items
+inheritance external dependencies:
+0 items
+class names:
+37 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$digitsParser$1
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$digitsParser$2
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$keywordParser$1
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$keywordParser$2
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$parseNonterminal$1
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$$anonfun$parseNonterminal$2
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Branch
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Branch$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Choice
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Choice$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Grammar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Grammar$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Leaf
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Leaf$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Nonterminal
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Nonterminal$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$RuleRHS
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$RuleRHS$class
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Sequence
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Sequence$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Terminal
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Terminal$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> NaiveGrammar$Tree
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$Branch
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$Branch$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$Leaf
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$Leaf$
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> SimpleGrammar$Tree
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> util.Combinators
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> util.Combinators$$anonfun$parseRegex$1
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> util.Combinators$$anonfun$parseString$1
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> util.Combinators$ParserOps
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> util.Combinators$class
+used names:
+0 items
+product stamps:
+37 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$digitsParser$1.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$digitsParser$2.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$keywordParser$1.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$keywordParser$2.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$parseNonterminal$1.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$$anonfun$parseNonterminal$2.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Branch$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Branch.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Choice$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Choice.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Grammar$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Grammar.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Leaf$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Leaf.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Nonterminal$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Nonterminal.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$RuleRHS$class.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$RuleRHS.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Sequence$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Sequence.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Terminal$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Terminal.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar$Tree.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/NaiveGrammar.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Branch$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Branch.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Leaf$.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Leaf.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar$Tree.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/SimpleGrammar.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$$anonfun$parseRegex$1.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$$anonfun$parseString$1.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$ParserOps.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators$class.class -> lastModified(1416226395000)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/bin/util/Combinators.class -> lastModified(1416226395000)
+source stamps:
+3 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> hash(6343b1a0df94e32386753577d040860840badc80)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> hash(fb0f0dea8b39ba69de1381c7b269673934b803c0)
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> hash(b7a3e76980ec9183cd6b1293983723c81fc43b78)
+binary stamps:
+2 items
+/Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar -> lastModified(1413447401000)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar -> lastModified(1406753776000)
+class names:
+2 items
+/Applications/eclipse/plugins/org.scala-lang.scala-library_2.11.2.v20140721-095018-73fb460c1c.jar -> scala.None$
+/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar -> java.lang.Object
+internal apis:
+3 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHAkUZ8bAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAAMTmFpdmVHcmFtbWFydXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsO5FPEfRFTMkCAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAHBzcgAgeHNidGkuU2FmZUxhenkkJGFub25mdW4kc3RyaWN0JDHhZaBKlSi/3wIAAUwAB3ZhbHVlJDFxAH4AL3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4ALgBwc3EAfgAzc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+ABVMAAlpbmhlcml0ZWRxAH4AFUwAB3BhcmVudHNxAH4AFXhxAH4AN3NxAH4ALgBwc3EAfgAzdXEAfgAQAAAAAHNxAH4ALgBwc3EAfgAzdXEAfgAQAAAAAHNxAH4ALgBwc3EAfgAzdXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAANzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+ABxMAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgA2dAALQ29tYmluYXRvcnNzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+ADZzcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgAceHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABHV0aWxzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4AVHNxAH4AR3QABk9iamVjdHNxAH4AS3NxAH4ATnVxAH4AUQAAAANzcQB+AFN0AARqYXZhc3EAfgBTdAAEbGFuZ3EAfgBYc3EAfgBHdAADQW55c3EAfgBLc3EAfgBOdXEAfgBRAAAAAnNxAH4AU3QABXNjYWxhcQB+AFh1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAHNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABSb2ryU91cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5cQB+ABxMAA9zb3VyY2VEaXJlY3RvcnlxAH4AHHhwdABZL1VzZXJzL0Jlbm55L1Byb2dyYW1taWVyZW4vU2NhbGEvU2NhbGFXb3JrYmVuY2gvUmVwb1ByYWMvU2NhbGFCZW5qYW1pblZvbGxtZXIvZ3JhbW1hci9iaW50AFkvVXNlcnMvQmVubnkvUHJvZ3JhbW1pZXJlbi9TY2FsYS9TY2FsYVdvcmtiZW5jaC9SZXBvUHJhYy9TY2FsYUJlbmphbWluVm9sbG1lci9ncmFtbWFyL3NyY3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUY0OxoN+U4yOGdTV30ECGCEC63IA=
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHDNC/Y0AHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHAAdAANU2ltcGxlR3JhbW1hcnVyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgATeHNidGkuU2FmZUxhenkkSW1wbDuRTxH0RUzJAgADWgAIYml0bWFwJDBMAAJfdHQAEkxqYXZhL2xhbmcvT2JqZWN0O0wABGV2YWx0ABFMc2NhbGEvRnVuY3Rpb24wO3hyABZ4c2J0aS5hcGkuQWJzdHJhY3RMYXp503e1AV+756ACAAB4cABwc3IAIHhzYnRpLlNhZmVMYXp5JCRhbm9uZnVuJHN0cmljdCQx4WWgSpUov98CAAFMAAd2YWx1ZSQxcQB+AC94cHNyABN4c2J0aS5hcGkuRW1wdHlUeXBlvP2eRkk7iSQCAAB4cgAUeHNidGkuYXBpLlNpbXBsZVR5cGVyeGKIISO/QAIAAHhyAA54c2J0aS5hcGkuVHlwZT9q2SEWSarKAgAAeHBzcQB+AC4AcHNxAH4AM3NyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgAVTAAJaW5oZXJpdGVkcQB+ABVMAAdwYXJlbnRzcQB+ABV4cQB+ADdzcQB+AC4AcHNxAH4AM3VxAH4AEAAAAABzcQB+AC4AcHNxAH4AM3VxAH4AEAAAAABzcQB+AC4AcHNxAH4AM3VyABFbTHhzYnRpLmFwaS5UeXBlO3T/pVp7+elBAgAAeHAAAAADc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgAcTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4ANnQAC0NvbWJpbmF0b3Jzc3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgA2c3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAACc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4AHHhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AAR1dGlsc3IADnhzYnRpLmFwaS5UaGlz2wntpsxaQFwCAAB4cQB+AFRzcQB+AEd0AAZPYmplY3RzcQB+AEtzcQB+AE51cQB+AFEAAAADc3EAfgBTdAAEamF2YXNxAH4AU3QABGxhbmdxAH4AWHNxAH4AR3QAA0FueXNxAH4AS3NxAH4ATnVxAH4AUQAAAAJzcQB+AFN0AAVzY2FsYXEAfgBYdXIAFFtMeHNidGkuYXBpLlBhY2thZ2U7WxMZN3CnJ6ECAAB4cAAAAABzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAUm9q8lPdXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAFzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgAcTAAPc291cmNlRGlyZWN0b3J5cQB+ABx4cHQAWS9Vc2Vycy9CZW5ueS9Qcm9ncmFtbWllcmVuL1NjYWxhL1NjYWxhV29ya2JlbmNoL1JlcG9QcmFjL1NjYWxhQmVuamFtaW5Wb2xsbWVyL2dyYW1tYXIvYmludABZL1VzZXJzL0Jlbm55L1Byb2dyYW1taWVyZW4vU2NhbGEvU2NhbGFXb3JrYmVuY2gvUmVwb1ByYWMvU2NhbGFCZW5qYW1pblZvbGxtZXIvZ3JhbW1hci9zcmN1cgACW0Ks8xf4BghU4AIAAHhwAAAAFPsPDeqLObpp3hOBx7JpZzk0uAPA
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHCECdH+AHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAFzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+ABV4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnPHERMhaZzcJAIAAUIABWZsYWdzeHABdAAQdXRpbC5Db21iaW5hdG9yc3VyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABVRyYWl0dXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsO5FPEfRFTMkCAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAHBzcgAgeHNidGkuU2FmZUxhenkkJGFub25mdW4kc3RyaWN0JDHhZaBKlSi/3wIAAUwAB3ZhbHVlJDFxAH4AL3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4ALgBwc3EAfgAzc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+ABVMAAlpbmhlcml0ZWRxAH4AFUwAB3BhcmVudHNxAH4AFXhxAH4AN3NxAH4ALgBwc3EAfgAzdXEAfgAQAAAAAHNxAH4ALgBwc3EAfgAzdXEAfgAQAAAAAHNxAH4ALgBwc3EAfgAzdXIAEVtMeHNidGkuYXBpLlR5cGU7dP+lWnv56UECAAB4cAAAAAJzcgAUeHNidGkuYXBpLlByb2plY3Rpb27z0o1U6UWkLQIAAkwAAmlkcQB+ABxMAAZwcmVmaXh0ABZMeHNidGkvYXBpL1NpbXBsZVR5cGU7eHEAfgA2dAAGT2JqZWN0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgA2c3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAADc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4AHHhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AARqYXZhc3EAfgBTdAAEbGFuZ3NyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgBUc3EAfgBHdAADQW55c3EAfgBLc3EAfgBOdXEAfgBRAAAAAnNxAH4AU3QABXNjYWxhcQB+AFp1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAXNyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgAceHB0AAR1dGlsc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFJvavJT3VyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4AHEwAD3NvdXJjZURpcmVjdG9yeXEAfgAceHB0AFkvVXNlcnMvQmVubnkvUHJvZ3JhbW1pZXJlbi9TY2FsYS9TY2FsYVdvcmtiZW5jaC9SZXBvUHJhYy9TY2FsYUJlbmphbWluVm9sbG1lci9ncmFtbWFyL2JpbnQAWS9Vc2Vycy9CZW5ueS9Qcm9ncmFtbWllcmVuL1NjYWxhL1NjYWxhV29ya2JlbmNoL1JlcG9QcmFjL1NjYWxhQmVuamFtaW5Wb2xsbWVyL2dyYW1tYXIvc3JjdXIAAltCrPMX+AYIVOACAAB4cAAAABS3o+dpgOyRg81rEpOYNyPIH8Q7eA==
+external apis:
+0 items
+source infos:
+3 items
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/NaiveGrammar.scala -> 
+AAAAAAAAAAA=
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/SimpleGrammar.scala -> 
+AAAAAAAAAAA=
+/Users/Benny/Programmieren/Scala/ScalaWorkbench/RepoPrac/ScalaBenjaminVollmer/grammar/src/main/scala/util/Combinators.scala -> 
+AAAAAAAAAAA=
+compilations:
+1 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABSb2ryU91cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAWS9Vc2Vycy9CZW5ueS9Qcm9ncmFtbWllcmVuL1NjYWxhL1NjYWxhV29ya2JlbmNoL1JlcG9QcmFjL1NjYWxhQmVuamFtaW5Wb2xsbWVyL2dyYW1tYXIvYmludABZL1VzZXJzL0Jlbm55L1Byb2dyYW1taWVyZW4vU2NhbGEvU2NhbGFXb3JrYmVuY2gvUmVwb1ByYWMvU2NhbGFCZW5qYW1pblZvbGxtZXIvZ3JhbW1hci9zcmM=
