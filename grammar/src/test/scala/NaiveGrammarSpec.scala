@@ -33,7 +33,7 @@ class NaiveGrammarSpec extends FlatSpec {
           n1234)))))
   }
 
-  it should "parse and simplify arithmetic expressions" in {
+  "it" should "parse and simplify arithmetic expressions" in {
     assert(parseAndSimplifyAE("1234") == Leaf('num, "1234"))
 
     assert(parseAndSimplifyAE("sum of 1 and 2") ==
@@ -49,5 +49,17 @@ class NaiveGrammarSpec extends FlatSpec {
         Leaf('num, "1234"))))
   }
 
-  "You" should "write more tests" in fail("not finished yet")
+  "parseRHS" should "parse RHS of nonterminal" in{
+    val threeNums = num | (num ~ and ~ num) | (num ~ and ~ num ~ and ~ num)
+    parseRHS(threeNums, ae)("1 and 2 and 3") ==
+       Some((
+         List(
+           Leaf('num, "1"),
+           Leaf('keyword, " and "),
+           Leaf('num, "2"),
+           Leaf('keyword, " and "),
+           Leaf('num, "3")
+        ), "" ))
+
+  }
 }

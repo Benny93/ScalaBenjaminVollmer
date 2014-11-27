@@ -1,15 +1,16 @@
-/** Exercise 3.2: A naive interpreter of grammars
-  *
-  * In this exercise, we will write a recursive descent parser
-  * for all possible grammars.
-  *
-  * Tasks
-  *
-  * 1. Replace ??? by real implementations so that the test
-  *    NaiveGrammarSpec succeeds.
-  *
-  * 2. Add more test cases in NaiveGrammarSpec.
-  */
+/**
+ * Exercise 3.2: A naive interpreter of grammars
+ *
+ * In this exercise, we will write a recursive descent parser
+ * for all possible grammars.
+ *
+ * Tasks
+ *
+ * 1. Replace ??? by real implementations so that the test
+ *    NaiveGrammarSpec succeeds.
+ *
+ * 2. Add more test cases in NaiveGrammarSpec.
+ */
 
 import util.Combinators
 
@@ -94,21 +95,21 @@ object NaiveGrammar extends Combinators {
   // inside RuleRHS so that choices and sequences are easier to
   // write.
 
-  sealed trait RuleRHS {
-    def | (rhs: RuleRHS) = Choice(this, rhs)
-    def ~ (rhs: RuleRHS) = Sequence(this, rhs)
+  sealed trait RuleRHS { //sealed trat means, that the number of possible matches is not infinite
+    def |(rhs: RuleRHS) = Choice(this, rhs)
+    def ~(rhs: RuleRHS) = Sequence(this, rhs)
   }
 
   // Let's define the terminals and nonterminals.
 
-  val exp       = Nonterminal('exp)
-  val add       = Nonterminal('add)
-  val mul       = Nonterminal('mul)
+  val exp = Nonterminal('exp)
+  val add = Nonterminal('add)
+  val mul = Nonterminal('mul)
 
-  val num       = Terminal(digitsParser('num))
-  val sumOf     = Terminal(keywordParser("sum of "))
+  val num = Terminal(digitsParser('num))
+  val sumOf = Terminal(keywordParser("sum of "))
   val productOf = Terminal(keywordParser("product of "))
-  val and       = Terminal(keywordParser(" and "))
+  val and = Terminal(keywordParser(" and "))
 
   def digitsParser(symbol: Symbol): Parser[Tree] =
     parseRegex("[0-9]+") ^^ { x => Leaf(symbol, x) }
@@ -145,9 +146,7 @@ object NaiveGrammar extends Combinators {
       rules = Map(
         exp -> (add | mul | num),
         add -> (sumOf ~ exp ~ and ~ exp),
-        mul -> (productOf ~ exp ~ and ~ exp)
-      )
-    )
+        mul -> (productOf ~ exp ~ and ~ exp)))
 
   // Given a grammar, we want to convert a string to a syntax
   // tree described by that grammar. Given `ae`, we want to
@@ -157,8 +156,31 @@ object NaiveGrammar extends Combinators {
   // It will rely on `parseNonterminal`, a generalization of
   // `parseExp`, `parseAdd`, and `parseMul` of 2.1.
 
-  def parseGrammar(grammar: Grammar): String => Tree =
-    ???
+  def parseGrammar(grammar: Grammar): String => Tree = input => parseNonterminal(grammar.start, grammar)(input) match {
+
+    case Some((exp, rest)) if rest.isEmpty =>
+      exp
+
+    case Some((exp, rest)) if rest.nonEmpty =>
+      sys.error("not an expression: " + input)
+
+    case None =>
+      sys.error("not an expression: " + input)
+  }
+
+  /* 
+   *   def parse(code: String): Exp = parseExp(code) match {
+    case Some((exp, rest)) if rest.isEmpty =>
+      exp
+
+    case Some((exp, rest)) if rest.nonEmpty =>
+      sys.error("not an expression: " + code)
+
+    case None =>
+      sys.error("not an expression: " + code)
+  }
+   * 
+   * */
 
   // `parseNonterminal` generalizes `parseExp`, `parseAdd` and
   // `parseMul` from 2.1. Given a grammar and a nonterminal,
@@ -244,7 +266,83 @@ object NaiveGrammar extends Combinators {
   //    corresponding to the matching case.
 
   def parseRHS(ruleRHS: RuleRHS, grammar: Grammar): Parser[List[Tree]] =
-    ???
+     ruleRHS match {//ruleRHS is a list of rules
+      //pos tproccessing ^^ parser of list of trees
+      case nonterminal:Nonterminal =>
+        parseRHS(grammar lookup nonterminal, grammar) //call parseRHS again until you reach a terminal
+      case terminal:Terminal=>
+        val p = terminal.parse
+        p ^^{
+          case (parserOfTree)=>
+            List(parserOfTree)
+
+        }
+      case seq:Sequence=>
+
+        val l = seq.lhs
+        val r = seq.rhs
+        /*
+        l ~ r ^^{
+          case (parserL,parserR)=>
+            List(parserL) ::: List(parserR)
+        }
+        */
+        parseRHS(l,grammar) ~ parseRHS(r,grammar) ^^{
+          case (lhs,rhs)=>
+            lhs ::: rhs
+        }
+
+      case choi:Choice=>
+        val l = choi.lhs
+        val r = choi.rhs
+
+         parseRHS(l,grammar) | parseRHS(r,grammar) ^^{
+           case (result)=>
+             result
+         }
+
+
+  }
+
+  /*
+   *   def mul: Parser[Exp] =
+    (((product <~ wS) ~ (strOf <~ wS)) ~> exp <~ (wS ~> and2 <~ wS)) ~ exp ^^ {
+      case (lhs, rhs) => Mul(lhs, rhs)
+    }
+   * 
+   * 
+   * */
+  /* Parser of Lists from descent
+  def zeroOrMore[A](parser: => Parser[A]): Parser[List[A]] =
+    input => parser(input) match {
+      // parse failed; return empty list
+      case None =>
+        Some((List.empty, input))
+
+      // parse succeeds; put the first result at the head of the
+      // list, and work on the rest of the input in the same
+      // manner.
+      case Some((firstResult, afterFirstResult)) =>
+        zeroOrMore(parser)(afterFirstResult) match {
+          case Some((otherResults, afterOtherResults)) =>
+            Some((firstResult :: otherResults, afterOtherResults))
+
+          case None =>
+            None
+        }
+    }
+    
+    def oneOrMore[A](parser: => Parser[A]): Parser[List[A]] = {
+    val zOM = zeroOrMore(parser)
+
+    (parser ~ zOM) ^^ {
+      case (a, b) =>
+        b.::(a)
+    }
+   
+  }
+    
+*/
 
   // We should now be able to parse arithmetic expressions.
   //
