@@ -304,45 +304,7 @@ object NaiveGrammar extends Combinators {
 
   }
 
-  /*
-   *   def mul: Parser[Exp] =
-    (((product <~ wS) ~ (strOf <~ wS)) ~> exp <~ (wS ~> and2 <~ wS)) ~ exp ^^ {
-      case (lhs, rhs) => Mul(lhs, rhs)
-    }
-   * 
-   * 
-   * */
-  /* Parser of Lists from descent
-  def zeroOrMore[A](parser: => Parser[A]): Parser[List[A]] =
-    input => parser(input) match {
-      // parse failed; return empty list
-      case None =>
-        Some((List.empty, input))
 
-      // parse succeeds; put the first result at the head of the
-      // list, and work on the rest of the input in the same
-      // manner.
-      case Some((firstResult, afterFirstResult)) =>
-        zeroOrMore(parser)(afterFirstResult) match {
-          case Some((otherResults, afterOtherResults)) =>
-            Some((firstResult :: otherResults, afterOtherResults))
-
-          case None =>
-            None
-        }
-    }
-    
-    def oneOrMore[A](parser: => Parser[A]): Parser[List[A]] = {
-    val zOM = zeroOrMore(parser)
-
-    (parser ~ zOM) ^^ {
-      case (a, b) =>
-        b.::(a)
-    }
-   
-  }
-    
-*/
 
   // We should now be able to parse arithmetic expressions.
   //
@@ -369,7 +331,24 @@ object NaiveGrammar extends Combinators {
   //     Branch('add, List(Leaf('num, "1"), Leaf('num, "2")))
 
   def simplifyAE(syntaxTree: Tree): Tree =
-    ???
+    syntaxTree match {
+      case branch:Branch =>
+          branch.symbol match {
+              case 'exp =>
+                 ???
+              case 'mul =>
+                Branch('mul, branch.children)
+              case 'add =>
+                Branch('add, branch.children)
+          }
+      case leaf:Leaf =>  //return leaf
+        leaf.symbol match {
+          case 'keyword =>
+            ???
+          case 'num =>
+            Leaf('num,leaf.code)
+        }
+    }
 
   /** parse an arithmetic expression and simplify it */
   def parseAndSimplifyAE(code: String): Tree =
