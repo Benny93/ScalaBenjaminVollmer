@@ -105,13 +105,42 @@ object SimpleGrammar extends util.Combinators {
   }
   def parseNonterminal(nonterminal: Nonterminal, grammar: Grammar): Parser[Tree] =
     parseRHS(grammar lookup nonterminal, grammar) ^^ {
-      children => Branch(nonterminal.symbol, children)
+
+      grammar.lookup(nonterminal) match {
+        case sel:Select=>
+          children => children(0)
+
+
+        case _ => children => Branch(nonterminal.symbol, children)
+      }
+
+         /*
+
+        children => {
+          println(children)
+          Branch(nonterminal.symbol, children)}
+
+      }else{
+        children => Branch(nonterminal.symbol, children)
+      }
+*/
+/*
+      children => {
+        println(children)
+        println(nonterminal.symbol)
+        Branch(nonterminal.symbol, children)}
+        */
     }
+
 
   def parseRHS(ruleRHS: RuleRHS, grammar: Grammar): Parser[List[Tree]] =
     ruleRHS match {
       case nonterminal:Nonterminal =>
-        parseRHS(grammar lookup nonterminal, grammar) //call parseRHS again until you reach a terminal
+        //parseRHS(grammar lookup nonterminal, grammar) //call parseRHS again until you reach a terminal
+        parseNonterminal(nonterminal,grammar)^^{
+          case (parserOfNonterminal)=>
+            List(parserOfNonterminal)
+        }
       case terminal:Terminal=>
         terminal.parse ^^{
           case (parserOfTree)=>
@@ -130,7 +159,7 @@ object SimpleGrammar extends util.Combinators {
       case sel:Select=>
         parseRHS(sel.lhs,grammar) | parseRHS(sel.rhs,grammar) ^^{
           case (result)=>
-            ??? //never return result from select
+            result //never return result from select
         }
     }
 

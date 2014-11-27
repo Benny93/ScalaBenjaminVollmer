@@ -269,7 +269,10 @@ object NaiveGrammar extends Combinators {
      ruleRHS match {//ruleRHS is a list of rules
       //pos tproccessing ^^ parser of list of trees
       case nonterminal:Nonterminal =>
-        parseRHS(grammar lookup nonterminal, grammar) //call parseRHS again until you reach a terminal
+        parseNonterminal(nonterminal,grammar)^^{
+          case (parserOfNonterminal)=>
+            List(parserOfNonterminal)
+        } //call parseRHS again until you reach a terminal
       case terminal:Terminal=>
         val p = terminal.parse
         p ^^{
@@ -334,20 +337,35 @@ object NaiveGrammar extends Combinators {
     syntaxTree match {
       case branch:Branch =>
           branch.symbol match {
-              case 'exp => ???
-                 //branch.children.foreach{child => simplifyAE(child)}
+              case 'exp =>{
+
+                 simplifyAE(branch.children(0))  //foreach{child => simplifyAE(child)
+                  }
               case 'mul =>
-                Branch('mul, branch.children)
-              case 'add =>
-                Branch('add, branch.children)
+                Branch('mul, branch.children.map(simplifyAE).filter{case leaf:Leaf => leaf.symbol != 'keyword
+                case branch:Branch=> branch.symbol != 'exp
+                })
+              case 'add =>{
+                //println(branch.symbol)
+                //println("TEST: " + branch.children.map(simplifyAE).filter{case leaf:Leaf => leaf.symbol != 'keyword} + "End")
+                Branch('add, branch.children.map(simplifyAE).filter{case leaf:Leaf => leaf.symbol != 'keyword
+                case branch:Branch=> branch.symbol != 'exp
+                })
+              } //flatmap  OR //filter
           }
+        /*
+        * persons filter (p => !p.isMale) flatMap (p =>
+       |     (p.children map (c => (p.name, c.name))))
+        * */
+
       case leaf:Leaf =>  //return leaf
         leaf.symbol match {
           case 'keyword =>
-            ???
+          leaf
           case 'num =>
             Leaf('num,leaf.code)
         }
+
     }
 
   /** parse an arithmetic expression and simplify it */
