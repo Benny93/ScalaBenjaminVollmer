@@ -334,8 +334,8 @@ object NaiveGrammar extends Combinators {
     syntaxTree match {
       case branch:Branch =>
           branch.symbol match {
-              case 'exp =>
-                 ???
+              case 'exp => ???
+                 //branch.children.foreach{child => simplifyAE(child)}
               case 'mul =>
                 Branch('mul, branch.children)
               case 'add =>

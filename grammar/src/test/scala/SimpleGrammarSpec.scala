@@ -20,5 +20,14 @@ class SimpleGrammarSpec extends FlatSpec {
   }
 
   // Your tests here
-  "You" should "write more tests" in fail("not finished yet")
+  "parseRHS" should "parse only simplified trees" in {
+    val threeNums = num | (num ~ and ~ num) | (num ~ and ~ num ~ and ~ num)
+    parseRHS(threeNums, ae)("1 and 2 and 3") ==
+      Some((
+        List(
+          Leaf('num, "1"),
+          Leaf('num, "2"),
+          Leaf('num, "3")
+        ), "" ))
+  }
 }
