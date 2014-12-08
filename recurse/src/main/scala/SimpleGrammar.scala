@@ -316,4 +316,11 @@ object SimpleGrammar extends util.Combinators {
   def parseAndEval(code: String): Int =
     eval(parseAE(code))
 
+
+  /*
+  * 8. I could not parse 2 + 3 * 4 because my grammar does not support this combinarion
+  * But I think that, it will give me the wrong answer because my parser does not know about the rule of multiplication and addition
+  * 
+  * */
+
 }
