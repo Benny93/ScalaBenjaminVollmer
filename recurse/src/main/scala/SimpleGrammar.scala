@@ -9,7 +9,6 @@ import sext._
 object SimpleGrammar extends util.Combinators {
 
 
-
   sealed trait Tree
 
   case class Leaf(symbol: Symbol, code: String) extends Tree
@@ -80,7 +79,8 @@ object SimpleGrammar extends util.Combinators {
   /*parsing left recursive Grammar does not work, because it will end up in an infinite loop.
   * Convert to right recursion first!
   *
-  * 4./5.  I relieved Error: java.lang.StackOverflowError for a grammar like this
+  * Excercise 4./5.  I relieved Error: java.lang.StackOverflowError for a grammar like this. To fix this we have to eliminate the
+  * left-recursion
   *
   * val ae: Grammar =
     Grammar(
@@ -92,13 +92,13 @@ object SimpleGrammar extends util.Combinators {
   * */
 
   /*solution -->*/
-   val ae: Grammar =
+  val ae: Grammar =
     Grammar(
       start = exp,
       rules = Map(
         exp -> (num ~ add | num ~ mul | num),
         add -> (plus ~ add | num ~ add | num),
-        mul -> (dot ~ mul| num ~ mul | num)))
+        mul -> (dot ~ mul | num ~ mul | num)))
   /*
   Resulting Tree:
   * Branch:
@@ -120,7 +120,7 @@ object SimpleGrammar extends util.Combinators {
 | | | | | | - 'num
 | | | | | | - 2
   *
-  * 7. My parser can not say in which branch he will descent. So add cannot stand as the top branch
+  *Exercise 7. My parser can not say in which branch he will descent. So add cannot stand as the top branch
   *
   * after setting plus and mul as an Terminal of type 'Comment'
   * Branch:
@@ -147,12 +147,12 @@ object SimpleGrammar extends util.Combinators {
   def parseGrammar(grammar: Grammar): String => Tree = input => parseNonterminal(grammar.start, grammar)(input) match {
 
     case Some((exp, rest)) if rest.isEmpty =>
-      //println(simplifyTree(exp))
-      println(exp)
-      println(simplifyTree(exp).treeString)
-      simplifyTree(exp)
 
-      //exp
+      //println(exp)
+      println(simplifyTree(exp).treeString)
+      simplifyTree(exp) //simplify the tree
+
+
     case Some((exp, rest)) if rest.nonEmpty =>
       sys.error("not an expression: " + input)
 
@@ -209,97 +209,66 @@ object SimpleGrammar extends util.Combinators {
 
   /*simplify*/
   def simplifyTree(syntaxTree: Tree): Tree =
-  syntaxTree match {
-    case branch:Branch=>
-      branch.symbol match {
-        case 'exp =>{
-          //simplifyTree(branch.children(0))
-          //println( "symbol: " + branch.symbol + " children: " + branch.children(1))
+    syntaxTree match {
+      case branch: Branch =>
+        branch.symbol match {
+          case 'exp => {
 
-          //println("achsp: " +  Branch('add, List(simplifyTree(branch.children(0)),simplifyTree(branch.children(1)))))
+            val expChildren = branch.children
+            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
+              branch.children(1) match {
+                case branch: Branch => {
+                  //println("simbol: " + branch.symbol)
+                  branch.symbol match {
 
-          //println("child2: " + branch.children(1))
-
-          val expChildren = branch.children
-          if(branch.children.count(p => p.isInstanceOf[Tree] ) > 1) {
-            branch.children(1) match {
-              case branch: Branch => {
-                //println("simbol: " + branch.symbol)
-                branch.symbol match {
-
-                  case 'add => Branch('add, expChildren.map(simplifyTree))
-                  case 'mul => Branch('mul, expChildren.map(simplifyTree))
+                    case 'add => Branch('add, expChildren.map(simplifyTree))
+                    case 'mul => Branch('mul, expChildren.map(simplifyTree))
+                  }
+                }
+                case leaf: Leaf => {
+                  leaf
                 }
               }
-              case leaf: Leaf => {
-                //println("simbol:" + leaf.symbol)
-                leaf
-              }
+            } else {
+              simplifyTree(branch.children(0))
+
             }
-          }else{
-            simplifyTree(branch.children(0))
+
 
           }
 
+          case 'add => {
+
+            //println("Amount of children: " + branch.children.count(p => p.isInstanceOf[Tree]))
+            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
+              Branch('add, branch.children.map(simplifyTree))
+            } else {
+              simplifyTree(branch.children(0))
+            }
 
 
-
-        }
-
-        case 'add =>
-        {
-
-
-          //println("Using map:  " + branch.children.map(simplifyTree))
-          /*
-          simplifyTree(branch.children(0)) match {
-            case leaf:Leaf=>
-              if (leaf.symbol != 'keyword){
-                leaf
-              }else{
-                simplifyTree(branch.children(1))
-              }
-            case branch:Branch =>
-              branch
           }
-          */
-          //println("Anzahl der Kinder: " + branch.children.count(p => p.isInstanceOf[Tree]))
-          if(branch.children.count(p => p.isInstanceOf[Tree]) > 1){
-            Branch('add, branch.children.map(simplifyTree))
-          }else{
-            simplifyTree(branch.children(0))
-          }
+          case 'mul => {
 
+            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
+              Branch('mul, branch.children.map(simplifyTree))
+            } else {
+              simplifyTree(branch.children(0))
+            }
 
-
-
-        }
-        case 'mul =>
-        {
-
-          if(branch.children.count(p => p.isInstanceOf[Tree]) > 1){
-            Branch('mul, branch.children.map(simplifyTree))
-          }else{
-            simplifyTree(branch.children(0))
           }
 
         }
 
-      }
-/*
-* Branch('mul, branch.children.map(simplifyAE).filter{case leaf:Leaf => leaf.symbol != 'keyword
-                case branch:Branch=> branch.symbol != 'exp
-                })
-* */
 
-    case leaf:Leaf=>
-      leaf.symbol match {
-        case 'keyword =>
-          leaf
-        case 'num =>
-          Leaf('num,leaf.code)
-      }
-  }
+      case leaf: Leaf =>
+        leaf.symbol match {
+          case 'keyword =>
+            leaf
+          case 'num =>
+            Leaf('num, leaf.code)
+        }
+    }
 
   /*after simplify eval can process it */
   def eval(t: Tree): Int = t match {
@@ -318,9 +287,9 @@ object SimpleGrammar extends util.Combinators {
 
 
   /*
-  * 8. I could not parse 2 + 3 * 4 because my grammar does not support this combinarion
+  * Excercise 8. I could not parse 2 + 3 * 4 because my grammar does not support this combination
   * But I think that, it will give me the wrong answer because my parser does not know about the rule of multiplication and addition
-  * 
+  *
   * */
 
 }
