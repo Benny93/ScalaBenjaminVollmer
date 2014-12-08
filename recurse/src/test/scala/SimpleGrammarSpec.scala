@@ -11,6 +11,30 @@ class SimpleGrammarSpec extends FlatSpec {
         Leaf('num, "1"),
         Leaf('num, "2"))))
 
+    assert(parseAE("1 * 2") ==
+      Branch('mul, List(
+        Leaf('num, "1"),
+        Leaf('num, "2"))))
+
+  }
+
+  it should "parse a chain of a expressions" in {
+    assert(parseAE("1 + 2 + 3") ==
+      Branch('add, List(
+        Leaf('num, "1"),
+        Branch('add,List(
+          Leaf('num, "2"),
+          Leaf('num, "3"))) ))
+
+    )
+
+  }
+
+  "parseAndEval" should "parse and eval arit. exoressions" in {
+
+    assert(parseAndEval("1 + 2") == 3)
+    assert(parseAndEval("1234") == 1234)
+    assert(parseAndEval("3 * 5") == 15)
   }
 
 
