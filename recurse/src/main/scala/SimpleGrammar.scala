@@ -97,8 +97,8 @@ object SimpleGrammar extends util.Combinators {
       start = exp,
       rules = Map(
         exp -> (num ~ add | num ~ mul | num),
-        add -> (plus ~ add | num ~ add | num),
-        mul -> (dot ~ mul | num ~ mul | num)))
+        add -> (plus ~ add | num ~ add | num ),
+        mul -> (dot ~ mul | num ~ mul | num )))
   /*
   Resulting Tree:
   * Branch:
@@ -216,19 +216,20 @@ object SimpleGrammar extends util.Combinators {
 
             val expChildren = branch.children
             if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
+
+              println("branch children" + branch.children)
               branch.children(1) match {
                 case branch: Branch => {
                   //println("simbol: " + branch.symbol)
-                  branch.symbol match {
+                  Branch(branch.symbol, expChildren.map(simplifyTree))
 
-                    case 'add => Branch('add, expChildren.map(simplifyTree))
-                    case 'mul => Branch('mul, expChildren.map(simplifyTree))
-                  }
                 }
                 case leaf: Leaf => {
                   leaf
                 }
+
               }
+
             } else {
               simplifyTree(branch.children(0))
 
