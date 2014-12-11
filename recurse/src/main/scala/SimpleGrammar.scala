@@ -97,8 +97,8 @@ object SimpleGrammar extends util.Combinators {
       start = exp,
       rules = Map(
         exp -> (num ~ add | num ~ mul | num),
-        add -> (plus ~ add | num ~ add | num ),
-        mul -> (dot ~ mul | num ~ mul | num )))
+        add -> (plus ~ exp),
+        mul -> (dot ~ exp)))
   /*
   Resulting Tree:
   * Branch:
