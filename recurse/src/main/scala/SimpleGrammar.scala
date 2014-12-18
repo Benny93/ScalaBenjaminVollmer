@@ -17,7 +17,7 @@ object SimpleGrammar extends util.Combinators {
 
 
   def parseAE(code: String): Tree =
-    parseGrammar(ae)(code)
+    parseGrammar(ae2)(code) //change used ae here
 
   /*implmentation*/
   case class Select(lhs: RuleRHS, rhs: RuleRHS) extends RuleRHS
@@ -51,6 +51,8 @@ object SimpleGrammar extends util.Combinators {
   val add = Nonterminal('add)
   val mul = Nonterminal('mul)
 
+  val prio1 = Nonterminal('prio1)
+  val prio2 = Nonterminal('prio2)
 
   val num = Terminal(digitsParser('num))
   val sumOf = Comment(keywordParser("sum of "))
@@ -139,6 +141,17 @@ object SimpleGrammar extends util.Combinators {
 | | | | | | - 'num
 | | | | | | - 2
   * */
+/*Operator precedence
+* here i will start the new grammar for operator precendence
+* */
+  val ae2: Grammar =
+    Grammar(
+      start = exp,
+      rules = Map(
+        exp -> (prio1 ~ add | num ~ mul| num),
+        prio1-> (num ~ mul | num ),
+        add -> (plus ~ exp),
+        mul -> (dot ~ mul | dot ~ num)))
 
 
   /*end grammar*/
@@ -148,7 +161,7 @@ object SimpleGrammar extends util.Combinators {
 
     case Some((exp, rest)) if rest.isEmpty =>
 
-      //println(exp)
+      println(exp.treeString)
       println(simplifyTree(exp).treeString)
       simplifyTree(exp) //simplify the tree
 
@@ -217,7 +230,7 @@ object SimpleGrammar extends util.Combinators {
             val expChildren = branch.children
             if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
 
-              println("branch children" + branch.children)
+              //println("branch children" + branch.children)
               branch.children(1) match {
                 case branch: Branch => {
                   //println("simbol: " + branch.symbol)
@@ -255,6 +268,29 @@ object SimpleGrammar extends util.Combinators {
               Branch('mul, branch.children.map(simplifyTree))
             } else {
               simplifyTree(branch.children(0))
+            }
+
+          }
+          case 'prio1 =>{
+            val prio1Children = branch.children
+            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
+
+              //println("branch children" + branch.children)
+              branch.children(1) match {
+                case branch: Branch => {
+                  //println("simbol: " + branch.symbol)
+                  Branch(branch.symbol, prio1Children.map(simplifyTree))
+
+                }
+                case leaf: Leaf => {
+                  leaf
+                }
+
+              }
+
+            } else {
+              simplifyTree(branch.children(0))
+
             }
 
           }

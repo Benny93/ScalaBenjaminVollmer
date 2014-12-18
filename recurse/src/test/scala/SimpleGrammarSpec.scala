@@ -40,6 +40,7 @@ class SimpleGrammarSpec extends FlatSpec {
   "parseAndEval" should "parse like in ex 8 described" in{
     assert(parseAndEval("2 + 3 * 4") == 14)
     assert(parseAndEval("2 * 3 + 4") == 10 )
+
   }
 
 
