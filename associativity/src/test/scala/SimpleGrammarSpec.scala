@@ -33,5 +33,11 @@ class SimpleGrammarSpec extends FlatSpec {
     assert(parseAndEval("36 / 6 / 2") == 3)
   }
 
+  "it" should "be able to use a bigger language" in {
+    assert(parseAndEval("1 == 1") == 1)
+    assert(parseAndEval("2 + 2 == 4") == 1)
+    assert(parseAndEval("25 * 8 == 500 / 2 - 50") == 1)
+    assert(parseAndEval("3 == 4") == 0)
+  }
 
 }

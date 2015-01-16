@@ -17,7 +17,7 @@ object SimpleGrammar extends util.Combinators {
 
 
   def parseAE(code: String): Tree =
-    parseGrammar(ae)(code) //change used ae here
+    parseGrammar(aeBig)(code) //change used ae here
 
 
   case class Select(lhs: RuleRHS, rhs: RuleRHS) extends RuleRHS
@@ -55,7 +55,8 @@ object SimpleGrammar extends util.Combinators {
 
   val prio1 = Nonterminal('prio1)
   val prio2 = Nonterminal('prio2)
-
+  val prio3 = Nonterminal('prio3)
+  val equals = Nonterminal ('eq)
   val num = Terminal(digitsParser('num))
 
 
@@ -63,6 +64,7 @@ object SimpleGrammar extends util.Combinators {
   val dot = Comment(keywordParser(" * "))
   val minus = Comment(keywordParser(" - "))
   val slash = Comment(keywordParser(" / "))
+  val eqSgn = Comment(keywordParser(" == "))
 
   def digitsParser(symbol: Symbol): Parser[Tree] =
     parseRegex("[0-9]+") ^^ { x => Leaf(symbol, x)}
@@ -85,7 +87,17 @@ object SimpleGrammar extends util.Combinators {
         mul -> (dot ~ prio1 ),
         div -> (slash ~ prio1)))
 
-
+  val aeBig: Grammar =
+    Grammar(start = exp,
+      rules = Map(
+        exp -> ( equals | prio2),
+        equals -> (prio2 ~ eqSgn ~ prio2),
+        prio2 ->(prio1 ~ add | prio1 ~ sub | num ~ mul | num ~ div | num), //
+        prio1-> (num ~ mul | num ~ div | num ),
+        add -> (plus ~ prio2),
+        sub -> (minus ~ prio2),
+        mul -> (dot ~ prio1 ),
+        div -> (slash ~ prio1)))
   /*
   val ae: Grammar =
     Grammar(
@@ -174,40 +186,14 @@ object SimpleGrammar extends util.Combinators {
       case branch: Branch =>
         //println("Number of Branch children: " + branch.children.count(p => p.isInstanceOf[Tree]))//max 2 children
         branch.symbol match {
-          case 'exp => {
 
-            val expChildren = branch.children
+          case 'exp | 'prio1 | 'prio2 | 'prio3 =>{
+            val branchChildren = branch.children
             if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
 
-              //println("branch children" + branch.children)
               branch.children(1) match {
                 case branch: Branch => {
-                  //println("simbol: " + branch.symbol)
-                  Branch(branch.symbol, expChildren.map(simplifyTree))
-
-                }
-                case leaf: Leaf => {
-                  leaf
-                }
-
-              }
-
-            } else {
-              simplifyTree(branch.children(0))
-
-            }
-
-
-          }
-          case 'prio1 =>{
-            val prio1Children = branch.children
-            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
-
-              //println("branch children" + branch.children)
-              branch.children(1) match {
-                case branch: Branch => {
-                  //println("simbol: " + branch.symbol)
-                  Branch(branch.symbol, prio1Children.map(simplifyTree))
+                  Branch(branch.symbol, branchChildren.map(simplifyTree))
                 }
                 case leaf: Leaf => {
                   leaf
@@ -217,23 +203,7 @@ object SimpleGrammar extends util.Combinators {
               simplifyTree(branch.children(0))
             }
           }
-          case 'prio2 =>{
-            val prio2Children = branch.children
-            if (branch.children.count(p => p.isInstanceOf[Tree]) > 1) {
 
-              //println("branch children" + branch.children)
-              branch.children(1) match {
-                case branch: Branch => {
-                  Branch(branch.symbol, prio2Children.map(simplifyTree))
-                }
-                case leaf: Leaf => {
-                  leaf
-                }
-              }
-            } else {
-              simplifyTree(branch.children(0))
-            }
-          }
           case _ => {
             if (branch.children.count(p => p.isInstanceOf[Tree]) > 1 ){
               Branch(branch.symbol, branch.children.map(simplifyTree))
@@ -325,6 +295,21 @@ var hasSubAsParent:Boolean = false
 
     case Branch('mul, List(lhs, rhs)) =>
       eval(lhs) * eval(rhs)
+
+    case Branch('eq, List(lhs,rhs))=> { //Equality
+      if (eval(lhs) == eval(rhs)) {
+        return 1
+      } else {
+        return 0
+      }
+    }
+    case Branch('if, List(condition,ifTrue,ifFalse))=>{
+      if(eval(condition) == 1){
+        eval(ifTrue)
+      }else{
+        eval(ifFalse)
+      }
+    }
 
     case Leaf('num, code) =>
       code.toInt
