@@ -6,7 +6,7 @@ class SimpleGrammarSpec extends FlatSpec {
 
   "parseAndEval" should "parse and eval arit. exoressions" in {
 
-    //assert(parseAndEval("1 + 2") == 3)
+    assert(parseAndEval("2 - 3 + 4") == 3)
     //assert(parseAndEval("1234") == 1234)
     //assert(parseAndEval("3 * 5") == 15)
   }
@@ -23,7 +23,14 @@ class SimpleGrammarSpec extends FlatSpec {
     assert(parseAndEval("9 / 3 - 2") == 1)
     assert(parseAndEval("3 + 5 / 2") == 5)
     assert(parseAndEval("3 - 2 + 4 - 2") == 3)
+    assert(parseAndEval("1 - 3 * 4") == -11)
    // assert(parseAndEval("1256 + 25 * 48 / 9") == 1)
+  }
+
+  "it" should "give correct answer to" in {
+    //assert(parseAndEval("5 - 2 - 1 - 1") == 1)
+    assert(parseAndEval("1 - 2 - 3 - 4") == -8)
+    assert(parseAndEval("36 / 6 / 2") == 3)
   }
 
 
