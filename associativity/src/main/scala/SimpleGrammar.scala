@@ -57,6 +57,7 @@ object SimpleGrammar extends util.Combinators {
   val prio2 = Nonterminal('prio2)
   val prio3 = Nonterminal('prio3)
   val equals = Nonterminal ('eq)
+  val ifExp = Nonterminal('if)
   val num = Terminal(digitsParser('num))
 
 
@@ -65,6 +66,9 @@ object SimpleGrammar extends util.Combinators {
   val minus = Comment(keywordParser(" - "))
   val slash = Comment(keywordParser(" / "))
   val eqSgn = Comment(keywordParser(" == "))
+  val ifKw = Comment(keywordParser("if "))
+  val thenKw = Comment(keywordParser(" then "))
+  val elseKw = Comment(keywordParser(" else "))
 
   def digitsParser(symbol: Symbol): Parser[Tree] =
     parseRegex("[0-9]+") ^^ { x => Leaf(symbol, x)}
@@ -90,7 +94,8 @@ object SimpleGrammar extends util.Combinators {
   val aeBig: Grammar =
     Grammar(start = exp,
       rules = Map(
-        exp -> ( equals | prio2),
+        exp -> (ifExp | equals | prio2),
+        ifExp -> (ifKw ~ equals ~ thenKw ~ prio2 ~ elseKw ~ prio2 ),
         equals -> (prio2 ~ eqSgn ~ prio2),
         prio2 ->(prio1 ~ add | prio1 ~ sub | num ~ mul | num ~ div | num), //
         prio1-> (num ~ mul | num ~ div | num ),
@@ -214,8 +219,6 @@ object SimpleGrammar extends util.Combinators {
           }
 
         }
-
-
       case leaf: Leaf =>
         leaf.symbol match {
           case 'keyword =>
@@ -224,7 +227,7 @@ object SimpleGrammar extends util.Combinators {
             Leaf('num, leaf.code)
         }
     }
-var hasSubAsParent:Boolean = false
+
 
   def handleSubDiv(syntaxTree: Tree): Tree ={
    syntaxTree match{

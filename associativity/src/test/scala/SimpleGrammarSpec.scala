@@ -38,6 +38,8 @@ class SimpleGrammarSpec extends FlatSpec {
     assert(parseAndEval("2 + 2 == 4") == 1)
     assert(parseAndEval("25 * 8 == 500 / 2 - 50") == 1)
     assert(parseAndEval("3 == 4") == 0)
+    assert(parseAndEval("if 1 == 1 then 2 else 3") == 2)
+    assert(parseAndEval("if 2 + 2 == 5 then 1900 + 84 else 5 * 403") == 2015)
   }
 
 }
