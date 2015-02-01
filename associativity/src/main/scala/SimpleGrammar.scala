@@ -95,7 +95,7 @@ object SimpleGrammar extends util.Combinators {
     Grammar(start = exp,
       rules = Map(
         exp -> (ifExp | equals | prio2),
-        ifExp -> (ifKw ~ equals ~ thenKw ~ prio2 ~ elseKw ~ prio2 ),
+        ifExp -> (ifKw ~ equals ~ thenKw ~ exp ~ elseKw ~ exp ),
         equals -> (prio2 ~ eqSgn ~ prio2),
         prio2 ->(prio1 ~ add | prio1 ~ sub | num ~ mul | num ~ div | num), //
         prio1-> (num ~ mul | num ~ div | num ),
@@ -246,10 +246,17 @@ object SimpleGrammar extends util.Combinators {
                  rCB.symbol match{//test if it is an subtraction
                    case 'sub | 'add | 'div => //perform right rotation
 
-                     val newLeftChild = Branch(branch.symbol, List(branch.children(0), rCB.children(0)))
-                     val newRightChild = rCB.children(1)
+                     if (branch.symbol == 'sub && rCB.symbol == 'div) {
+                       //Do not left rotate
+                       Branch(branch.symbol,branch.children.map(handleSubDiv))
+                     }else{
+                       //right rotate
+                       val newLeftChild = Branch(branch.symbol, List(branch.children(0), rCB.children(0)))
+                       val newRightChild = rCB.children(1)
 
-                     handleSubDiv( Branch(rCB.symbol,List(newLeftChild,newRightChild)))
+                       handleSubDiv(Branch(rCB.symbol, List(newLeftChild, newRightChild)))
+                     }
+
                    case _ => // Do not left rotate here
 
                      Branch(branch.symbol,branch.children.map(handleSubDiv)) //do nothing

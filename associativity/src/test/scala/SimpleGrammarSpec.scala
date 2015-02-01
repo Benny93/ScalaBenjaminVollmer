@@ -40,6 +40,14 @@ class SimpleGrammarSpec extends FlatSpec {
     assert(parseAndEval("3 == 4") == 0)
     assert(parseAndEval("if 1 == 1 then 2 else 3") == 2)
     assert(parseAndEval("if 2 + 2 == 5 then 1900 + 84 else 5 * 403") == 2015)
+    assert(parseAndEval("3 - 6 / 3 / 2") == 2)
+  }
+  "it" should "parse nested if expressions" in {
+    assert(parseAndEval("if 2 + 2 == 5 then 1984 else 2015") == 2015)
+
+    assert(parseAndEval("if 2 + 2 == 5 then if 1 + 2 == 3 then 1 else 0 else 0") == 0)
+
+    assert(parseAndEval("if 1 + 1 == 2 then if 2 + 2 == 5 then 1111 + 222 + 33 + 4 else 4444 * 333 * 22 * 1 else if 1 == 2 then 2 + 2 else 4 * 5") == 32556744 )
   }
 
 }
