@@ -1,10 +1,14 @@
 /**
- * old class From Exercise 3.3: A more sophisticated interpreter of grammars reused
+ * Pretty Printing Benjamin Vollmer
  *
  *
  */
 
+import com.sun.java.util.jar.pack.Attribute
+import com.sun.java.util.jar.pack.Attribute.Layout
 import sext._
+
+import scala.collection.mutable
 
 object SimpleGrammar extends util.Combinators {
 
@@ -91,11 +95,12 @@ object SimpleGrammar extends util.Combinators {
         mul -> (dot ~ prio1 ),
         div -> (slash ~ prio1)))
 
+  //current in use:
   val aeBig: Grammar =
     Grammar(start = exp,
       rules = Map(
         exp -> (ifExp | equals | prio2),
-        ifExp -> (ifKw ~ equals ~ thenKw ~ prio2 ~ elseKw ~ prio2 ),
+        ifExp -> (ifKw ~ equals ~ thenKw ~ exp ~ elseKw ~ exp ),
         equals -> (prio2 ~ eqSgn ~ prio2),
         prio2 ->(prio1 ~ add | prio1 ~ sub | num ~ mul | num ~ div | num), //
         prio1-> (num ~ mul | num ~ div | num ),
@@ -129,7 +134,7 @@ object SimpleGrammar extends util.Combinators {
 
 
     case Some((exp, rest)) if rest.nonEmpty =>
-      println("Demaged Tree:")
+      println("Damaged Tree:")
       println(exp.treeString)
       sys.error("not an expression: " + input)
 
@@ -246,10 +251,17 @@ object SimpleGrammar extends util.Combinators {
                  rCB.symbol match{//test if it is an subtraction
                    case 'sub | 'add | 'div => //perform right rotation
 
-                     val newLeftChild = Branch(branch.symbol, List(branch.children(0), rCB.children(0)))
-                     val newRightChild = rCB.children(1)
+                     if (branch.symbol == 'sub && rCB.symbol == 'div) {
+                       //Do not left rotate
+                       Branch(branch.symbol,branch.children.map(handleSubDiv))
+                     }else{
+                        //right rotate
+                       val newLeftChild = Branch(branch.symbol, List(branch.children(0), rCB.children(0)))
+                       val newRightChild = rCB.children(1)
 
-                     handleSubDiv( Branch(rCB.symbol,List(newLeftChild,newRightChild)))
+                       handleSubDiv(Branch(rCB.symbol, List(newLeftChild, newRightChild)))
+                     }
+
                    case _ => // Do not left rotate here
 
                      Branch(branch.symbol,branch.children.map(handleSubDiv)) //do nothing
@@ -321,11 +333,106 @@ object SimpleGrammar extends util.Combinators {
   def parseAndEval(code: String): Int =
     eval(parseAE(code))
 
-/*
-* Task 2:
-* It does not parse 5 - 2 - 1 and 32 / 4 / 2 correctly, because the tree structure
- * leads the parser to solve always the right hand side of the expression first.
-  * So it calculates the term like "5- (2-1)" and "32 / (4/2)"
-* */
+/*UNPARSING A TREE*/
+  def unparse(tree: Tree): String  = {
+  tree match{
+    case branch:Branch=>
+      branch.symbol match{
+        case 'if => //because i know the structure of the tree, i can leave children hard coded
+          "if " + unparse(branch.children(0)) + " then " + unparse(branch.children(1)) + " else " + unparse(branch.children(2))
+        case 'add =>
+          unparse(branch.children(0)) + " + " + unparse(branch.children(1)) //add has 2 children
+        case 'sub =>
+          unparse(branch.children(0)) + " - " + unparse(branch.children(1))
+
+        case 'mul => unparse(branch.children(0)) + " * " + unparse(branch.children(1))
+        case 'div => unparse(branch.children(0)) + " / " + unparse(branch.children(1))
+
+        case 'eq =>
+          unparse(branch.children(0)) + " == " + unparse(branch.children(1))
+
+      }
+
+    case leaf:Leaf=>
+      leaf.code //leaf is now only of type num and only contains numbers as strings
+  }
+}//end unparse
+
+  type Layout = List[(Int, String)]
+  type Doc = List[Layout]
+
+  def makeItPretty(tree: Tree, lineWidth: Int): String = {
+    val unparsedTree:String = unparse(tree)
+
+    unparsedTree
+  }
+
+
+  def render(layout: Layout):String ={
+    var outputDocument: String = ""
+    layout.foreach{singleLayout =>
+      outputDocument = outputDocument + addWhitespaces(singleLayout._2,singleLayout._1) + "\n"
+    }
+    return outputDocument
+  }
+
+
+  def addWhitespaces(string:String, amount:Int):String = {
+    var input= string
+    if (amount > 0) {
+
+      input = " " + input
+      addWhitespaces(input, amount - 1)
+    }else {
+      return input
+    }
+  }
+
+
+  // step 1: enumerate all possible ways to print a syntax tree
+  def enumerate(tree: Tree): Doc = {
+    tree match {
+      case branch:Branch=>
+        branch.symbol match{
+          case 'if=>
+            val lay:Layout={List((0,"if " + enumerate(branch.children(0)) + " then " + enumerate(branch.children(1)) + " else " + enumerate(branch.children(2))))}
+            val lay2:Layout={List((0,"if " + enumerate(branch.children(0)) + " then " + enumerate(branch.children(1)) + " else \n" + enumerate(branch.children(2))))}
+
+            val docForBranch:Doc ={List(lay,lay2)}
+            return docForBranch
+          /*equal*/
+          case 'eq=>
+            ???
+          /*mul and div*/
+          case 'mul =>
+            ???
+          case 'div=>
+            ???
+
+          /*addition and subtraction*/
+          case 'add=>
+            val lay:Layout={List((0,enumerate(branch.children(0)) + " + " + enumerate(branch.children(1))))}
+            val lay2:Layout={List((0,enumerate(branch.children(0)) + " + \n" + enumerate(branch.children(1))))}
+            val d:Doc = {List(lay,lay2)}
+            return d
+          case 'sub=>
+            val lay:Layout={List((0,enumerate(branch.children(0)) + " - " + enumerate(branch.children(1))))}
+            val lay2:Layout ={List((0,enumerate(branch.children(0)) + " - \n" + enumerate(branch.children(1))))}
+
+            val d:Doc = {List(lay,lay2)}
+            return d
+        }
+
+      case leaf:Leaf=>
+        //leaf.code //always a number
+        val lay:Layout={List((0,leaf.code))}
+        val docForLeaf:Doc ={List(lay)}
+        return docForLeaf
+    }
+
+  }
+
+  // step 2: find the best layout according to some line width
+  //def findBestLayout(doc: Doc, lineWidth: Int): Layout
 
 }
