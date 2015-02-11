@@ -4,11 +4,7 @@
  *
  */
 
-import com.sun.java.util.jar.pack.Attribute
-import com.sun.java.util.jar.pack.Attribute.Layout
 import sext._
-
-import scala.collection.mutable
 
 object SimpleGrammar extends util.Combinators {
 
@@ -359,21 +355,22 @@ object SimpleGrammar extends util.Combinators {
 }//end unparse
 
   type Layout = List[(Int, String)]
+  def Layout(xs:(Int,String)*) = List(xs: _*)
   type Doc = List[Layout]
+  def Doc(xs: Layout*) = List(xs: _*)
+
 
   def makeItPretty(tree: Tree, lineWidth: Int): String = {
-    val unparsedTree:String = unparse(tree)
-
-    unparsedTree
+    render(findBestLayout(enumerate(tree),lineWidth))
   }
 
 
   def render(layout: Layout):String ={
-    var outputDocument: String = ""
-    layout.foreach{singleLayout =>
-      outputDocument = outputDocument + addWhitespaces(singleLayout._2,singleLayout._1) + "\n"
-    }
-    return outputDocument
+    var resString:String = ""
+    layout.foreach(singleLayout =>{
+     resString += addWhitespaces(singleLayout._2,singleLayout._1) + "\n"
+    })
+   return resString
   }
 
 
@@ -395,32 +392,22 @@ object SimpleGrammar extends util.Combinators {
       case branch:Branch=>
         branch.symbol match{
           case 'if=>
-            val lay:Layout={List((0,"if " + enumerate(branch.children(0)) + " then " + enumerate(branch.children(1)) + " else " + enumerate(branch.children(2))))}
-            val lay2:Layout={List((0,"if " + enumerate(branch.children(0)) + " then " + enumerate(branch.children(1)) + " else \n" + enumerate(branch.children(2))))}
-
-            val docForBranch:Doc ={List(lay,lay2)}
-            return docForBranch
+            combineDocuments(List( List(List((0,"if "))),enumerate(branch.children(0)), List(List((0," then "))),enumerate(branch.children(1)), List(List((0," else "))),enumerate(branch.children(2))))
           /*equal*/
           case 'eq=>
-            ???
+            combineDocuments(List(enumerate(branch.children(0)), List(List((0," == "))),enumerate(branch.children(1))))
           /*mul and div*/
           case 'mul =>
-            ???
+            combineDocuments(List(enumerate(branch.children(0)), List(List((0," * "))),enumerate(branch.children(1))))
           case 'div=>
-            ???
+            combineDocuments(List(enumerate(branch.children(0)), List(List((0," / "))),enumerate(branch.children(1))))
 
           /*addition and subtraction*/
           case 'add=>
-            val lay:Layout={List((0,enumerate(branch.children(0)) + " + " + enumerate(branch.children(1))))}
-            val lay2:Layout={List((0,enumerate(branch.children(0)) + " + \n" + enumerate(branch.children(1))))}
-            val d:Doc = {List(lay,lay2)}
-            return d
+            combineDocuments(List(enumerate(branch.children(0)), List(List((0," + "))),enumerate(branch.children(1))))
           case 'sub=>
-            val lay:Layout={List((0,enumerate(branch.children(0)) + " - " + enumerate(branch.children(1))))}
-            val lay2:Layout ={List((0,enumerate(branch.children(0)) + " - \n" + enumerate(branch.children(1))))}
 
-            val d:Doc = {List(lay,lay2)}
-            return d
+            combineDocuments(List(enumerate(branch.children(0)), List(List((0," - "))),enumerate(branch.children(1))))
         }
 
       case leaf:Leaf=>
@@ -432,7 +419,109 @@ object SimpleGrammar extends util.Combinators {
 
   }
 
+
+
+
+  def combineDocuments(docs:List[Doc]):Doc = {
+    docs match {
+      case List(lhs, operator, rhs) => {
+
+        for {//for every layout
+          lLay <- lhs
+          rLay <- rhs
+          oLay <- operator
+          breakLine <- List(1, 2, 3)
+        } yield {
+          //for every content of the layout
+          if (breakLine == 1) {
+            lLay ++ oLay ++ rLay
+          } else {
+            if (breakLine == 2) {
+              mergeTwoLayouts(lLay, oLay) ++ addSomeIndentToLayout(rLay, 2)
+            } else {
+              mergeTwoLayouts(mergeTwoLayouts(lLay, oLay), rLay)
+            }
+          }
+        }
+
+      }
+      case List(ifOpDoc, conditionDoc, thenDoc, result1Doc, elseDoc, result2Doc) => {
+
+        for {//for every layout
+          ifs <- ifOpDoc
+          //cons <- conditionDoc
+          thenLay <- thenDoc
+          result1 <- result1Doc
+          elseLay <- elseDoc
+          result2 <- result2Doc
+          breakLine <- List(1, 2, 3)
+        } yield {
+          //for every content of the layout
+          if (breakLine == 1) {
+            ifs ++ addSomeIndentToLayout(conditionDoc(2),2) ++ thenLay ++ addSomeIndentToLayout( result1,2) ++
+              elseLay ++ addSomeIndentToLayout(result2, 2)
+          } else {
+            if (breakLine == 2) {
+              mergeTwoLayouts(ifs, conditionDoc(2)) ++ addSomeIndentToLayout(thenLay, 3) ++
+                addSomeIndentToLayout(result1, 2) ++ elseLay ++ addSomeIndentToLayout(result2, 2)
+            } else {
+              mergeTwoLayouts(mergeTwoLayouts(ifs, conditionDoc(2)), thenLay) ++ addSomeIndentToLayout(result1, 2) ++
+                elseLay ++ addSomeIndentToLayout(result2, 2)
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  def mergeTwoLayouts(layout1:Layout, layout2: Layout):Layout={ //merge two layouts. the indent of the first layout will be taken
+    for{
+      l1 <- layout1
+      l2 <-layout2
+    }yield{
+      (l1._1,l1._2 + l2._2 )
+    }
+  }
+
+  def addSomeIndentToLayout(layout: Layout, indent: Int):Layout={
+    for {
+      lay <-layout
+    }yield{
+      (lay._1 + indent ,lay._2)
+    }
+  }
+
+/* //This is not in use but maybe should be in use
+  def mergeConditionLayout(condition:Layout): Layout ={ // !! attention if condition is longer than line with??? //Layout ist List[Int,String]
+
+    for{
+      lay <- condition
+    }yield{
+      (lay._1,lay._2)
+    }
+
+  }
+*/
+
   // step 2: find the best layout according to some line width
-  //def findBestLayout(doc: Doc, lineWidth: Int): Layout
+  def findBestLayout(doc: Doc, lineWidth: Int): Layout={
+    var fits:Boolean = true
+    var anyLayout:Layout={List()}
+    doc.foreach(singleLayout =>{
+
+      singleLayout.foreach(layoutPart=>{
+        if((layoutPart._1.toString + layoutPart._2).toString.length > lineWidth){
+          fits = false
+        }
+      })
+      if(fits){
+        anyLayout = singleLayout
+      }else{
+        fits = true // continue trying
+      }
+    })
+    return anyLayout // if no layout fits give back the last one. -> in future this will give back the smallest one
+  }
 
 }
