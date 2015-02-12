@@ -99,54 +99,33 @@ class SimpleGrammarSpec extends FlatSpec {
       )}
     val document = {List(lay1,lay2)}
 
-    println("Rendered demo Layout 1: \n" + render(lay1))
-    println("Rendered demo Layout 2: \n" + render(lay2))
+   // println("Rendered demo Layout 1: \n" + render(lay1))
+    //println("Rendered demo Layout 2: \n" + render(lay2))
 
-    println("the best layout for Doc: \n" + render(findBestLayout(document,2)))
+    //println("the best layout for Doc: \n" + render(findBestLayout(document,2)))
   }
 
   "render" should "give an formated string as output" in {
-    /*
-    println("|Hallo|" + addWhitespaces("Hallo",10))
-    val lay : Layout = {
-      List((0,"Hallo"))
-    }
-    val lay2: Layout = {List((2,"World!"))}
 
-    println("rendered Layout: \n" + render(lay) + render(lay2))
-
-    val tree:Tree=parseAE("2 - 3")
-    println("enumerate tree: \n " + enumerate(tree))
-    val docu = enumerate(tree)
-    println("render each layout of doc" + docu.foreach(render))
-    */
     val tree:Tree=parseAE("if 3 == 5 then 3 else 4")
-
-    println("Enumerated Doc: " + enumerate(tree))
+    val bigTree:Tree=parseAE("if 3 + 4 + 5 == 12 then 4 + 8 * 4 else 4 * 3")
+    //val hugheTree:Tree=parseAE("if 1 + 1 == 2 then if 2 + 2 == 5 then 1111 + 222 + 33 + 4 else 4444 * 333 * 22 * 1 else if 1 == 2 then 2 + 2 else 4 * 5")
+   // println("Enumerated Doc: " + enumerate(tree))
     val doc = enumerate(tree)
 
-    println("Rendered example doc(0): \n" + render(doc(0)))
-    println("Rendered example doc(1): \n" + render(doc(1)))
-    println("Rendered example doc(2): \n" + render(doc(2)))
+
 
     println("Pretty printing at linewith 13: \n " + makeItPretty(tree,13))
     println("Pretty printing at linewith 40: \n " + makeItPretty(tree,40))
+    println("Pretty printing at linewith 3: \n " + makeItPretty(tree,6)) //min is 6
+    println("Print a big tree with 13: \n"+ makeItPretty(bigTree,13))
+    println("Print a big tree with 40: \n"+ makeItPretty(bigTree,40))
+    println("Print a big tree with 4: \n"+ makeItPretty(bigTree,4))
+    //println("Print a hughe Tree with 40 lines: \n" + makeItPretty(hugheTree,40)) // hughe tree runs into stack overflow :(
   }
 
-  "simpleComp3Docs" should "work like expected" in {
-    val a:Layout={List((0,"1 + 1"), (0," == "),(0,"2"))}
-    val b:Layout = {List(((0," ==")))}
-    val c:Layout = {List((0,"2 then"))}
 
-    val aD={List(a)}
-    val bD={List(a)}
-    val cD={List(a)}
 
-    //println("combine layouts:"+ mergeConditionLayout(a) )
-
-    //println("Combinated Doc: " + comb3Docs(aD,bD,cD))
-    //println("merge Layouts a+b: " + mergeTwoLayouts(a,b))
-  }
 
 
 }

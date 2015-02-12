@@ -124,8 +124,8 @@ object SimpleGrammar extends util.Combinators {
 
     case Some((exp, rest)) if rest.isEmpty =>
       //println("Raw Tree: " + exp.treeString)
-      println("SimplyfiedTree: " + simplifyTree(exp).treeString)
-      println("Handled Tree: " + handleSubDiv( simplifyTree(exp)).treeString )
+      //println("SimplyfiedTree: " + simplifyTree(exp).treeString)
+      //println("Handled Tree: " + handleSubDiv( simplifyTree(exp)).treeString )
       handleSubDiv(simplifyTree(exp)) //simplify the tree
 
 
@@ -368,7 +368,7 @@ object SimpleGrammar extends util.Combinators {
   def render(layout: Layout):String ={
     var resString:String = ""
     layout.foreach(singleLayout =>{
-     resString += addWhitespaces(singleLayout._2,singleLayout._1) + "\n"
+     resString += addWhitespaces(singleLayout._2.trim,singleLayout._1) + "\n"
     })
    return resString
   }
@@ -434,6 +434,7 @@ object SimpleGrammar extends util.Combinators {
         } yield {
           //for every content of the layout
           if (breakLine == 1) {
+            //println("LeftLayout: " + lLay)
             lLay ++ oLay ++ rLay
           } else {
             if (breakLine == 2) {
@@ -449,7 +450,7 @@ object SimpleGrammar extends util.Combinators {
 
         for {//for every layout
           ifs <- ifOpDoc
-          //cons <- conditionDoc
+          cons <- conditionDoc
           thenLay <- thenDoc
           result1 <- result1Doc
           elseLay <- elseDoc
@@ -458,14 +459,14 @@ object SimpleGrammar extends util.Combinators {
         } yield {
           //for every content of the layout
           if (breakLine == 1) {
-            ifs ++ addSomeIndentToLayout(conditionDoc(2),2) ++ thenLay ++ addSomeIndentToLayout( result1,2) ++
+            ifs ++ addSomeIndentToLayout(cons,2) ++ thenLay ++ addSomeIndentToLayout( result1,2) ++
               elseLay ++ addSomeIndentToLayout(result2, 2)
           } else {
             if (breakLine == 2) {
-              mergeTwoLayouts(ifs, conditionDoc(2)) ++ addSomeIndentToLayout(thenLay, 3) ++
+              mergeTwoLayouts(ifs, cons) ++ addSomeIndentToLayout(thenLay, 3) ++
                 addSomeIndentToLayout(result1, 2) ++ elseLay ++ addSomeIndentToLayout(result2, 2)
             } else {
-              mergeTwoLayouts(mergeTwoLayouts(ifs, conditionDoc(2)), thenLay) ++ addSomeIndentToLayout(result1, 2) ++
+              mergeTwoLayouts(mergeTwoLayouts(ifs, cons), thenLay) ++ addSomeIndentToLayout(result1, 2) ++
                 elseLay ++ addSomeIndentToLayout(result2, 2)
             }
           }
@@ -476,12 +477,23 @@ object SimpleGrammar extends util.Combinators {
 
 
   def mergeTwoLayouts(layout1:Layout, layout2: Layout):Layout={ //merge two layouts. the indent of the first layout will be taken
-    for{
-      l1 <- layout1
-      l2 <-layout2
-    }yield{
-      (l1._1,l1._2 + l2._2 )
-    }
+    /*
+    * The merge should look like:
+    * (int,"first row of lay1")
+    * (...)
+    * (int,"last row lay1 + first row of layout2")
+    *                       (int,"remain of lay2")
+    *                       (...)
+    * */
+    val combinedLine:String =  layout1.last._2 + layout2.head._2 //merge last and first element of the two lists
+    val combLineIndent:Int = layout1.last._1
+
+    val layStep1:Layout = layout1.init //Get all elements except the last one
+    val layStep2:Layout = layStep1 ::: List((combLineIndent,combinedLine))//add the merge to the last of the list
+    val addtionalIndent:Int =  maxSizeOfLayout(layout1) //create an indent for the second List so it looks prettier
+    val result:Layout = layStep2 ::: addSomeIndentToLayout(layout2.tail,addtionalIndent) //add everything but the head of layout2
+
+    return result
   }
 
   def addSomeIndentToLayout(layout: Layout, indent: Int):Layout={
@@ -492,36 +504,37 @@ object SimpleGrammar extends util.Combinators {
     }
   }
 
-/* //This is not in use but maybe should be in use
-  def mergeConditionLayout(condition:Layout): Layout ={ // !! attention if condition is longer than line with??? //Layout ist List[Int,String]
 
-    for{
-      lay <- condition
-    }yield{
-      (lay._1,lay._2)
-    }
-
-  }
-*/
 
   // step 2: find the best layout according to some line width
   def findBestLayout(doc: Doc, lineWidth: Int): Layout={
     var fits:Boolean = true
-    var anyLayout:Layout={List()}
+    var resLay:Layout={List()}
+    if(lineWidth < 6){
+      return findBestLayout(doc,6) //6 is the minimum linewidth the code can be desplayed in
+    }
     doc.foreach(singleLayout =>{
-
-      singleLayout.foreach(layoutPart=>{
-        if((layoutPart._1.toString + layoutPart._2).toString.length > lineWidth){
-          fits = false
-        }
-      })
+      if(maxSizeOfLayout(singleLayout) > lineWidth){fits = false}
       if(fits){
-        anyLayout = singleLayout
+        resLay = singleLayout
       }else{
         fits = true // continue trying
       }
     })
-    return anyLayout // if no layout fits give back the last one. -> in future this will give back the smallest one
+    return resLay //give back the matching layout
   }
+
+  def maxSizeOfLayout(lay:Layout):Int = {
+    var maxSize:Int = 0
+    lay.foreach{
+      layTupel =>
+        if(addWhitespaces(layTupel._2,layTupel._1).length > maxSize){
+          maxSize = addWhitespaces(layTupel._2,layTupel._1).length
+        }
+    }
+    return maxSize
+  }
+
+
 
 }
