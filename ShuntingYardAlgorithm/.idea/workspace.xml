@@ -41,9 +41,14 @@
       <file leaf-file-name="ShuntingYard.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8543689" vertical-offset="998" max-vertical-offset="1515">
-              <caret line="93" column="2" selection-start-line="93" selection-start-column="2" selection-end-line="93" selection-end-column="2" />
-              <folding />
+            <state vertical-scroll-proportion="0.38106796" vertical-offset="38" max-vertical-offset="630">
+              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+              <folding>
+                <element signature="e#58#71#0" expanded="true" />
+                <element signature="e#161#1038#0" expanded="false" />
+                <element signature="e#1040#2280#0" expanded="false" />
+                <element signature="e#2282#3736#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,9 +66,11 @@
       <file leaf-file-name="ShuntingYardSpec.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="255">
-              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+              <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+              <folding>
+                <element signature="e#42#63#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,8 +82,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/scala/util/Combinators.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ShuntingYard.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala" />
       </list>
     </option>
   </component>
@@ -561,7 +568,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#58#71#0" expanded="true" />
+            <element signature="e#161#1038#0" expanded="false" />
+            <element signature="e#1040#2280#0" expanded="false" />
+            <element signature="e#2282#3736#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -577,7 +589,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="255">
           <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="e#42#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -599,17 +613,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+          <folding>
+            <element signature="e#42#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8543689" vertical-offset="998" max-vertical-offset="1515">
-          <caret line="93" column="2" selection-start-line="93" selection-start-column="2" selection-end-line="93" selection-end-column="2" />
-          <folding />
+        <state vertical-scroll-proportion="0.38106796" vertical-offset="38" max-vertical-offset="630">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding>
+            <element signature="e#58#71#0" expanded="true" />
+            <element signature="e#161#1038#0" expanded="false" />
+            <element signature="e#1040#2280#0" expanded="false" />
+            <element signature="e#2282#3736#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

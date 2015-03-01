@@ -4,6 +4,8 @@
  */
 import sext._
 
+import scala.collection.immutable.Queue
+
 object ShuntingYard extends util.Combinators {
 /*
 * In this final project Djikstras shunting yard algorithm will be implemented.
@@ -91,8 +93,23 @@ object ShuntingYard extends util.Combinators {
 
 /*First i want to create all the necessary objects*/
 
-  
+  sealed trait Token
+
+  case class Number(code:String) extends Token
+  case class Bracket(code:String,leftsided :Boolean) extends Token
+  case class Operator(code:String,numberOfOperands:Byte,levelOfPersistence: Byte) extends Token
+
+  //main function
+  def parseAEWithShuntingYard(code:String):Int={???}
+
+  //1. get all the tokens
+  def tokenizeExpression(code:String):List[Token]={???}
+
+  //2.convert to reverse polish
+  def convertToReversePolish(tokensList:List[Token]):Queue[Token]={???}
 
 
+  //3.translate reverse polish and calculate the result
+  def translateRPAndEvalResult(outputQueue:Queue[Token]):Int={???}
 
 }
