@@ -99,11 +99,72 @@ object ShuntingYard extends util.Combinators {
   case class Bracket(code:String,leftsided :Boolean) extends Token
   case class Operator(code:String,numberOfOperands:Byte,levelOfPersistence: Byte) extends Token
 
+  //Parsing basics for tokenize
+  def numberParser(): Parser[Token] =
+    parseRegex("[0-9]+") ^^ { x => Number(x) }
+
+  def operatorParser(operator: String,numberOfOperands:Byte,levelOfPersistence: Byte): Parser[Token] =
+    parseString(operator) ^^ { x => Operator(x,numberOfOperands,levelOfPersistence) }
+
+  def bracketParser(bracket:String):Parser[Token]=
+    parseString(bracket)^^{x => Bracket(x,x == "(")}
+
+
+  val number = numberParser()
+  val plus = operatorParser("+",2,0)
+  val minus = operatorParser("-",2,1)
+  val mul = operatorParser("*",2,2)
+  val div = operatorParser("/",2,2)
+  val leftBracket = bracketParser("(")
+  val rightBracket = bracketParser(")")
+
+
+
   //main function
   def parseAEWithShuntingYard(code:String):Int={???}
 
   //1. get all the tokens
-  def tokenizeExpression(code:String):List[Token]={???}
+  def tokenizeExpression(code:String):List[Token]={
+    number(code) match{
+      case Some((Number(x),rest))=>List(Number(x)) ::: tokenizeExpression(rest)
+      case Some(_)=> List.empty
+      case None=>
+        plus(code)match{
+          case Some((Operator(a,b,c),rest)) =>List(Operator(a,b,c))::: tokenizeExpression(rest)
+          case Some(_)=>List.empty
+          case None=>
+            minus(code)match{
+              case Some((Operator(a,b,c),rest)) =>List(Operator(a,b,c))::: tokenizeExpression(rest)
+              case Some(_)=>List.empty
+              case None=>
+                mul(code) match{
+                  case Some((Operator(a,b,c),rest)) =>List(Operator(a,b,c))::: tokenizeExpression(rest)
+                  case Some(_)=>List.empty
+                  case None=>
+                    div(code)match{
+                      case Some((Operator(a,b,c),rest)) =>List(Operator(a,b,c))::: tokenizeExpression(rest)
+                      case Some(_)=>List.empty
+                      case None=>
+                      leftBracket(code) match{
+                      case Some((Bracket(a,b),rest)) =>List(Bracket(a,b))::: tokenizeExpression(rest)
+                      case Some(_)=>List.empty
+                      case None=>
+                        rightBracket(code) match{
+                          case Some((Bracket(a,b),rest)) =>List(Bracket(a,b))::: tokenizeExpression(rest)
+                          case Some(_)=>List.empty
+                          case None=>List.empty
+                        }
+                      }
+                    }
+                }
+            }
+        }
+
+    }
+
+  }
+
+
 
   //2.convert to reverse polish
   def convertToReversePolish(tokensList:List[Token]):Queue[Token]={???}

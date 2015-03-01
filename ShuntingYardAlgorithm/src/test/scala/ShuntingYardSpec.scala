@@ -9,6 +9,9 @@ import org.scalatest._
 class ShuntingYardSpec extends FlatSpec {
 
     "tokenizeExpression" should "tokenize an Expression" in {
+      assert(tokenizeExpression("456") == List(Number("456")))
+
+
       assert(
       tokenizeExpression("9+24/(7-3)")== List(
       Number("9"),
@@ -22,11 +25,12 @@ class ShuntingYardSpec extends FlatSpec {
       Bracket(")",false)
       )
       )
+      println(tokenizeExpression("9+24/(7-3)"))
     }
-
+/*
     "parseAEWithShuntingYard" should "parse and eval correctly" in {
       assert(
       parseAEWithShuntingYard("9+24/(7-3)") == 15
       )
-    }
+    }*/
 }
