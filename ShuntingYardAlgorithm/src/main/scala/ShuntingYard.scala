@@ -59,7 +59,7 @@ object ShuntingYard extends util.Combinators {
 * |  read a token t
 * |  if( t is a number)=> add t to output QUEUE
 * |  if(t is an operator)
-* |   |   while(there is an operator j ON TOP of STACK with greater persistence than t)
+* |   |   while(there is an operator j ON TOP of STACK with greater or equal persistence than t)
 * |   |   | push j to output QUEUE
 * |   |   end while
 * |   |   push t to STACK
@@ -96,8 +96,9 @@ object ShuntingYard extends util.Combinators {
   sealed trait Token
 
   case class Number(code:String) extends Token
-  case class Bracket(code:String,leftsided :Boolean) extends Token
+  case class Bracket(code:String,isLeftBracket :Boolean) extends Token
   case class Operator(code:String,numberOfOperands:Byte,levelOfPersistence: Byte) extends Token
+  case class Comment(code:String) extends  Token
 
   //Parsing basics for tokenize
   def numberParser(): Parser[Token] =
@@ -109,6 +110,8 @@ object ShuntingYard extends util.Combinators {
   def bracketParser(bracket:String):Parser[Token]=
     parseString(bracket)^^{x => Bracket(x,x == "(")}
 
+  def whiteSpaceParser(ws:String):Parser[Token]=
+    parseString(ws) ^^{x => Comment(x) }
 
   val number = numberParser()
   val plus = operatorParser("+",2,0)
@@ -117,11 +120,37 @@ object ShuntingYard extends util.Combinators {
   val div = operatorParser("/",2,2)
   val leftBracket = bracketParser("(")
   val rightBracket = bracketParser(")")
+  val whitespace = whiteSpaceParser(" ")
+
+  def zeroOrMore[Token](parser: => Parser[Token]): Parser[List[Token]] = {
+    input => parser(input) match {
+      // parse failed; return empty list
+      case None =>
+        Some((List.empty, input))
 
 
+      case Some((firstResult, afterFirstResult)) =>
+        zeroOrMore(parser)(afterFirstResult) match {
+          case Some((otherResults, afterOtherResults)) =>
+            Some((firstResult :: otherResults, afterOtherResults))
 
-  //main function
-  def parseAEWithShuntingYard(code:String):Int={???}
+          case None =>
+            None
+        }
+
+    }
+  }
+        //main function
+  def parseAEWithShuntingYard(code:String):Int={
+
+    stack = List()
+    resultStack = List()
+
+    val step1 = tokenizeExpression(code)
+    val step2 = convertToReversePolish(step1)
+    val step3 = translateRPToResultStack(step2)
+    return extractResultFromResultStack(step3)
+  }
 
   //1. get all the tokens
   def tokenizeExpression(code:String):List[Token]={
@@ -152,7 +181,18 @@ object ShuntingYard extends util.Combinators {
                         rightBracket(code) match{
                           case Some((Bracket(a,b),rest)) =>List(Bracket(a,b))::: tokenizeExpression(rest)
                           case Some(_)=>List.empty
-                          case None=>List.empty
+                          case None=>
+                            zeroOrMore(whitespace)(code)match{
+                              case Some((firstResult, afterFResult))=> {
+                                //println("this is after first result: " + afterFResult)
+                                if(!afterFResult.equals(code)) {
+                                  //println("i tokenized this: " + afterFResult)
+                                  tokenizeExpression(afterFResult)
+                                }else{List.empty}
+
+                              }
+                              case None => List.empty
+                            }
                         }
                       }
                     }
@@ -165,12 +205,194 @@ object ShuntingYard extends util.Combinators {
   }
 
 
+  //Stack is an inelegant and potentially poorly-performing wrapper
+  // around List.
+  // Use List instead:
+  // stack push x becomes x :: list;
+  // stack.pop is list.tail.
+  var stack = List[Token]()
 
   //2.convert to reverse polish
-  def convertToReversePolish(tokensList:List[Token]):Queue[Token]={???}
+  def convertToReversePolish(tokenList:List[Token]): Queue[Token]={
+    if (tokenList.isEmpty){
+      //pop everthing from stack to queue
+
+      var queue = Queue[Token]()
+      //println("stack state" + stack)
+      if(!stack.isEmpty) {
+        queue =  queue.enqueue(stack)
+        while (!stack.isEmpty){
+          stack = stack.tail
+        }
+      }
+
+      return queue
+    }else {
+
+      tokenList.head match {
+        case number: Number =>
+          return Queue[Token]().enqueue(number) ++ convertToReversePolish(tokenList.tail)
 
 
+        case cOpt: Operator => //Token is operator
+          var outPut = Queue[Token]()
+          if (!stack.isEmpty) {
+            //if stack is not empty
+            var otherToken: Token = stack.head //first other Token on stack
+            if (otherToken.isInstanceOf[Operator]) {
+              var otherOperator: Operator = otherToken.asInstanceOf[Operator]
+              var stackIsEmpty:Boolean = false
+              while (!stackIsEmpty && stack.head.isInstanceOf[Operator] && otherOperator.levelOfPersistence >= cOpt.levelOfPersistence) {
+
+                outPut = outPut.enqueue(otherOperator)
+                //pop other
+                stack = stack.tail
+                //get new other Operator
+                if(!stack.isEmpty) {
+                  if (stack.head.isInstanceOf[Operator]) {
+                    otherOperator = stack.head.asInstanceOf[Operator]
+                  }
+                }else{stackIsEmpty = true}
+              }
+            }
+
+          }
+
+          //push current token to stack
+          stack = cOpt :: stack
+
+          val fusion = outPut ++ convertToReversePolish(tokenList.tail) //concatinate outputQueue with future OutputQueue
+
+          return fusion
+
+        case bracket: Bracket =>
+          var outPut = Queue[Token]()
+          if (bracket.isLeftBracket) {
+            //push to stack
+            stack = bracket :: stack
+            return convertToReversePolish(tokenList.tail)
+
+          } else {
+            //TODO catch if no match bracket
+            if (!stack.isEmpty) {
+              //if stack is not empty
+              var popOperator:Boolean = false
+              var otherToken: Token = stack.head //first other Token on stack
+
+              if (otherToken.isInstanceOf[Operator]){
+                  popOperator = true
+              }else{
+                  popOperator = false
+              }
+
+              //pop everything inside brackets ( ) to queue
+              while (popOperator) {
+                //
+                outPut = outPut.enqueue(otherToken) //pop from stack to queue
+                stack = stack.tail //pop first element
+
+                otherToken = stack.head
+                if(otherToken.isInstanceOf[Bracket]){
+                  // has to be leftbracket because we never push rightbracket to the stack
+                  popOperator = false
+                }
+
+              }
+              // pop left bracket -> has to be left bracket now beacuse we popped everything before it
+              if (otherToken.asInstanceOf[Bracket].isLeftBracket) {
+                //pop leftbracket and discard
+                stack = stack.tail
+              }
+            }
+
+            return outPut ++ convertToReversePolish(tokenList.tail)
+          }
+
+         case com:Comment=>
+          if(!tokenList.tail.isEmpty) {
+            return convertToReversePolish(tokenList.tail) //skip comments
+          }else{return Queue()}
+      }
+    }
+  }
+
+  var resultStack = List[Token]()
   //3.translate reverse polish and calculate the result
-  def translateRPAndEvalResult(outputQueue:Queue[Token]):Int={???}
+  def translateRPToResultStack(outputQueue:Queue[Token]):List[Token]={ //it contains on last token, that is a number an contains the answer
+    println("queue to translate " + outputQueue)
+    outputQueue.head match{
+      case num:Number=>  // push it to resultStack
+          resultStack = num :: resultStack //push
+          var remainQ = outputQueue.tail //pop from queue
+
+        if (!remainQ.isEmpty){
+          println("remaining Queue after numbers "  + remainQ)
+           //continue on remaining operators
+          return translateRPToResultStack(remainQ) ::: resultStack
+        }
+        return resultStack
+
+
+      case opt:Operator=>  //pop needed amount of operators from resultStack, perform operation an push result back on resultStack
+        //println("Operator Info : " + opt.code + opt.numberOfOperands)
+        if(opt.numberOfOperands == 2 ){
+              //pop two operands from stack
+              println("My resultStack " + resultStack)
+
+              val lhs = resultStack.head.asInstanceOf[Number]
+              resultStack = resultStack.tail //pop
+              val rhs = resultStack.head.asInstanceOf[Number]
+              resultStack = resultStack.tail //pop
+
+              val resultToken = Number(eval(lhs,rhs,opt).toString)
+
+              resultStack = resultToken :: resultStack //push result token back on the stack
+
+            if(!outputQueue.tail.isEmpty) {
+              return translateRPToResultStack(outputQueue.tail) ::: resultStack //continue translating
+            }else{
+
+              return resultStack
+            }
+          }
+          //TODO 3 Operands
+
+        return translateRPToResultStack(outputQueue.tail) ::: resultStack //if operator did not fit
+
+      case bracket:Bracket =>
+        if(!outputQueue.tail.isEmpty){
+          return translateRPToResultStack(outputQueue.tail)
+        }
+        return List()
+
+      case com:Comment=>
+        if(!outputQueue.tail.isEmpty) {
+          return translateRPToResultStack(outputQueue.tail)
+        }else{return List()}
+    }
+  }
+
+  def eval(lhs:Number, rhs:Number, operator: Operator): Int ={
+    println("operator " + operator.code )
+    if(operator.code equals  "+"){
+      return lhs.code.toInt + rhs.code.toInt
+    }
+    if(operator.code equals  "-"){
+
+      return  rhs.code.toInt - lhs.code.toInt //invert to save left to right importance
+    }
+    if(operator.code equals  "*"){
+      return lhs.code.toInt * rhs.code.toInt
+    }
+    if(operator.code equals  "/"){
+      return  rhs.code.toInt / lhs.code.toInt
+    }
+    return 0
+  }
+  def extractResultFromResultStack(rStack:List[Token]): Int ={
+      val num = rStack.head
+
+    return  num.asInstanceOf[Number].code.toInt
+  }
 
 }
