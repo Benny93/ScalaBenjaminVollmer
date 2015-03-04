@@ -37,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ShuntingYard.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShuntingYard.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13964687" vertical-offset="5058" max-vertical-offset="7665">
-              <caret line="343" column="12" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
+            <state vertical-scroll-proportion="-15.296296" vertical-offset="5872" max-vertical-offset="8355">
+              <caret line="419" column="121" selection-start-line="419" selection-start-column="121" selection-end-line="419" selection-end-column="121" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#59#72#0" expanded="true" />
@@ -60,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShuntingYardSpec.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShuntingYardSpec.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="865" max-vertical-offset="1515">
-              <caret line="75" column="7" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.88461536" vertical-offset="865" max-vertical-offset="1605">
+              <caret line="98" column="88" selection-start-line="98" selection-start-column="88" selection-end-line="98" selection-end-column="88" />
               <folding>
                 <element signature="e#42#63#0" expanded="true" />
               </folding>
@@ -82,8 +82,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/scala/util/Combinators.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ShuntingYard.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala" />
       </list>
     </option>
   </component>
@@ -675,23 +675,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="865" max-vertical-offset="1515">
-          <caret line="75" column="7" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+        <state vertical-scroll-proportion="-15.296296" vertical-offset="5872" max-vertical-offset="8355">
+          <caret line="419" column="121" selection-start-line="419" selection-start-column="121" selection-end-line="419" selection-end-column="121" />
           <folding>
-            <element signature="e#42#63#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#59#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/ShuntingYardSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13964687" vertical-offset="5058" max-vertical-offset="7665">
-          <caret line="343" column="12" selection-start-line="343" selection-start-column="12" selection-end-line="343" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.88461536" vertical-offset="865" max-vertical-offset="1605">
+          <caret line="98" column="88" selection-start-line="98" selection-start-column="88" selection-end-line="98" selection-end-column="88" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#59#72#0" expanded="true" />
+            <element signature="e#42#63#0" expanded="true" />
           </folding>
         </state>
       </provider>

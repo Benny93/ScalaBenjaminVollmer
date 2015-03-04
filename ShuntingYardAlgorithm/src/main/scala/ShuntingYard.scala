@@ -132,7 +132,7 @@ object ShuntingYard extends util.Combinators {
   val leftBracket = bracketParser("(")
   val rightBracket = bracketParser(")")
   val whitespace = whiteSpaceParser(" ")
-  val thenKeyword = operatorParser("then",2,1)
+  val thenKeyword = commentParser("then")
   val elseKeyword = commentParser("else")
 
 
@@ -272,8 +272,10 @@ object ShuntingYard extends util.Combinators {
               var stackIsEmpty: Boolean = false
 
               while (!stackIsEmpty && stack.head.isInstanceOf[Operator]
-                && otherOperator.levelOfPersistence >= cOpt.levelOfPersistence && !otherOperator.code.equals("then")) {
+                && otherOperator.levelOfPersistence >= cOpt.levelOfPersistence && !cOpt.code.equals("if")) { //"if" is never allowed to push another operator away
+
                 println("current operator " + cOpt + "other op: " + otherOperator)
+
                 outPut = outPut.enqueue(otherOperator)
                 //pop other
                 stack = stack.tail
@@ -340,39 +342,83 @@ object ShuntingYard extends util.Combinators {
             return outPut ++ convertToReversePolish(tokenList.tail)
           }
 
-        case com: Comment =>
-          /*
+        case com: Comment => //To read more about how this part works read underneath the function
+          var outPut = Queue[Token]()
+          var stackIsEmpty:Boolean = false
+            /*CASE FOR THEN */
+            if(com.code.equals("then")){
+              //pop everything until if from stack, but keep if on the stack
+              println("then was used")
+
+              while (!stackIsEmpty && !stack.head.asInstanceOf[Operator].code.equals("if")){
+                //push to queue
+                outPut = outPut.enqueue(stack.head)
+                //pop
+                stack = stack.tail
+                if(stack.isEmpty){stackIsEmpty = true} //stop is stack is empty
+              }//stop if "if" has been reached
+            }
+            /*CASES FOR ELSE*/
             if(com.code.equals("else")){
               //this one is for nested if-then-else. It is important to know when on of these exp ends. So else is needed on stack
               if(stack.head.isInstanceOf[Comment] && stack.head.asInstanceOf[Comment].code.equals("else")){
                 //push everything from stack to queue unti a "if" operator has been reached.
                 //"then" should not be pushed
-                var oQueue = Queue[Token]()
+
+                println("special else")
                 stack = stack.tail //first throw else away
-                var stackIsEmpty:Boolean = false
+
                 while(!stackIsEmpty && stack.head.isInstanceOf[Operator] && !stack.head.asInstanceOf[Operator].code.equals("if")){
-                  //push to queue
+
                   if (stack.head.isInstanceOf[Operator]) {
-                    oQueue = oQueue.enqueue(stack.head)
+                    outPut = outPut.enqueue(stack.head) //push to queue
                   }
-                  if (!stack.tail.isEmpty) {
-                    stack = stack.tail //pop
-                  }else{stackIsEmpty = true}
+                  stack = stack.tail //pop
+                  if (stack.tail.isEmpty) {
+                  stackIsEmpty = true}
                 }
                 //only if remains so push it to queue
+                outPut = outPut.enqueue(stack.head) //push to queue
 
-
+                stack = stack.tail//pop from stack
+              }else{
+                //normal else -> push to queue until "if" token
+                println("normal else!")
+                while (!stackIsEmpty && !stack.head.asInstanceOf[Operator].code.equals("if")){
+                  //push to queue
+                  outPut = outPut.enqueue(stack.head)
+                  //pop
+                  stack = stack.tail
+                  if(stack.isEmpty){stackIsEmpty = true} //stop is stack is empty
+                }//stop if "if" has been reached
               }
+              //add else to stack
+              stack = com :: stack
 
-            }*/
+            }
+          /*returning of final output*/
           if (!tokenList.tail.isEmpty) {
-            return convertToReversePolish(tokenList.tail) //skip comments
+            return outPut ++ convertToReversePolish(tokenList.tail) //skip comments
           } else {
-            return Queue()
+            return outPut
           }
       }
     }
   }
+
+  /*
+  * The Problematic of if-then-else:
+  * First these three parts are depending on each other. In my research i figured out, that it would be the best
+  * if i summarize all these parts to one operator called "ifCondition". I still have tokens for if then and else.
+  * But only the if token becomes an operator because its importen. then and else are comments. they will not appear in
+  * the outputQueue but they have an logical effect on the stack. Because they both are defining their spaces, they need
+  * rules how they should effect the stack:
+  * +"Then" give the right border of the if condition, so when it appears all the content of the condition should be
+  * put in the outputqueue
+  * +"Else* builds the right corner of the "then" answer, so it should put everything of this to the queue. if another else sits already
+  * on the stack, that means it is an nested condtion. so the other if-then-else span has to be put to the queue first.
+  * It is important, that else is saved on the stack instead of the other else and that then is never saved on the stack.
+  * */
 
   var resultStack = List[Token]()
 
