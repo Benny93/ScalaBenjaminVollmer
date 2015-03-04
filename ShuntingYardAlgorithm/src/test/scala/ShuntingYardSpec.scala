@@ -9,12 +9,14 @@ import scala.collection.immutable.Queue
 
 
 class ShuntingYardSpec extends FlatSpec {
-
+/*
     "List Testing" should "give an example of Listtypes" in{
       val stack = List(1,2,3)
       val stack2 = List(4,5,6)
       val res = stack2 ::: stack
       //println("concatination of two stacks done right: " + res)
+      val e3 = eval(Number("2"),Number("2"),Operator("^",2,4))
+      println ("2^2: " + e3)
     }
 
     "zeroOrMore" should "return if there are zeroOrMore ws" in {
@@ -45,7 +47,7 @@ class ShuntingYardSpec extends FlatSpec {
       )
       //println(tokenizeExpression("9+24/(7-3)"))
     }
-
+*/
 
 /*
 
@@ -78,7 +80,7 @@ class ShuntingYardSpec extends FlatSpec {
         parseAEWithShuntingYard(" 3 -   6 / 3  /  2 ") == 2
       )
     }
-*/
+*//*
   "parseAEWithShuntingYard" should "be able to parse if-then-else"in{
 
     assert(
@@ -93,10 +95,23 @@ class ShuntingYardSpec extends FlatSpec {
       parseAEWithShuntingYard("if 1 == 2 then 3 else if 4 == 4 then if 5 == 5 then 6 else 7 else 8") == 6
     )
     assert(
-      parseAEWithShuntingYard("if 1 == 2+2 then 3 else if 4 == 4 then if 5 == 5 then 6 else 7 else 8") == 6
+      parseAEWithShuntingYard("if 1 == 2*(6-3) then 3 else if 4 == 4 then if 5 == 5 then 6 else 7 else 8") == 6
     )
     assert(
-      parseAEWithShuntingYard("if 1 == 2 then 3+5 else if 4 == 4 then if 5 == 5 then 3+3 else 7 else 8") == 6
+      parseAEWithShuntingYard("if 1 == 2 then 3+5 else if 4 == 4 then if 5 == 5 then 2*(9-6) else 7 else 8") == 6
+    )
+  }*/
+
+  "parseAEWithShuntingYard" should "be able to power some numbers" in {
+    assert(
+    parseAEWithShuntingYard("2^2") == 4
+    )
+
+    assert(
+      parseAEWithShuntingYard("2*2^2") == 8
+    )
+    assert(
+      parseAEWithShuntingYard("2*(8-6)^2") == 8
     )
   }
 

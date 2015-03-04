@@ -128,7 +128,7 @@ object ShuntingYard extends util.Combinators {
   val div = operatorParser("/", 2, 4)
   val ifCondition = operatorParser("if", 3, 0)
   val equals = operatorParser("==",2,1)
-  //TODO add operator ^
+  val pow = operatorParser("^",2,5)
   val leftBracket = bracketParser("(")
   val rightBracket = bracketParser(")")
   val whitespace = whiteSpaceParser(" ")
@@ -159,9 +159,14 @@ object ShuntingYard extends util.Combinators {
     resultStack = List()
 
     val step1 = tokenizeExpression(code)
+    try {
     val step2 = convertToReversePolish(step1)
     val step3 = translateRPToResultStack(step2)
     return extractResultFromResultStack(step3)
+    }catch{
+      case e:Exception => println("Exceprtion: " + e + " not a valid Expression!!")
+    }
+    return 0
   }
 
   //1. get all the tokens
@@ -181,45 +186,50 @@ object ShuntingYard extends util.Combinators {
                     div(code) match {
                       case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
                       case None =>
-                        leftBracket(code) match {
+                        pow(code) match{
                           case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                          case None =>
-                            rightBracket(code) match {
+                          case None=>
+                            leftBracket(code) match {
                               case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
                               case None =>
-                                ifCondition(code) match {
-                                  case Some((first, last)) => List(first) ::: tokenizeExpression(last)
+                                rightBracket(code) match {
+                                  case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
                                   case None =>
-                                    equals(code) match{
+                                    ifCondition(code) match {
                                       case Some((first, last)) => List(first) ::: tokenizeExpression(last)
                                       case None =>
-                                        thenKeyword(code) match {
-                                          case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
+                                        equals(code) match{
+                                          case Some((first, last)) => List(first) ::: tokenizeExpression(last)
                                           case None =>
-                                            elseKeyword(code) match {
+                                            thenKeyword(code) match {
                                               case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
                                               case None =>
-                                                zeroOrMore(whitespace)(code) match {
-                                                  case Some((firstResult, afterFResult)) => {
-                                                    //println("this is after first result: " + afterFResult)
-                                                    if (!afterFResult.equals(code)) {
-                                                      //println("i tokenized this: " + afterFResult)
-                                                      tokenizeExpression(afterFResult)
-                                                    } else {
-                                                      List.empty
-                                                    }
+                                                elseKeyword(code) match {
+                                                  case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
+                                                  case None =>
+                                                    zeroOrMore(whitespace)(code) match {
+                                                      case Some((firstResult, afterFResult)) => {
+                                                        //println("this is after first result: " + afterFResult)
+                                                        if (!afterFResult.equals(code)) {
+                                                          //println("i tokenized this: " + afterFResult)
+                                                          tokenizeExpression(afterFResult)
+                                                        } else {
+                                                          List.empty
+                                                        }
 
-                                                  }
-                                                  case None => List.empty
+                                                      }
+                                                      case None => List.empty
+                                                    }
                                                 }
                                             }
                                         }
+
                                     }
 
                                 }
-
                             }
                         }
+
                     }
                 }
             }
@@ -515,6 +525,10 @@ object ShuntingYard extends util.Combinators {
     }
     if (operator.code equals "/") {
       return rhs.code.toInt / lhs.code.toInt
+    }
+    if (operator.code equals "^") {
+
+      return math.pow(rhs.code.toInt , lhs.code.toInt).toInt
     }
     if (operator.code equals "=="){
       if(lhs.code equals rhs.code){
