@@ -80,7 +80,7 @@ class ShuntingYardSpec extends FlatSpec {
         parseAEWithShuntingYard(" 3 -   6 / 3  /  2 ") == 2
       )
     }
-*//*
+*/
   "parseAEWithShuntingYard" should "be able to parse if-then-else"in{
 
     assert(
@@ -100,7 +100,7 @@ class ShuntingYardSpec extends FlatSpec {
     assert(
       parseAEWithShuntingYard("if 1 == 2 then 3+5 else if 4 == 4 then if 5 == 5 then 2*(9-6) else 7 else 8") == 6
     )
-  }*/
+  }
 
   "parseAEWithShuntingYard" should "be able to power some numbers" in {
     assert(

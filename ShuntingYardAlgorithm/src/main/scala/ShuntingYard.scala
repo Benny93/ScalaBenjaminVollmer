@@ -141,10 +141,10 @@ object ShuntingYard extends util.Combinators {
       // parse failed; return empty list
       case None =>
         Some((List.empty, input))
-      case Some((firstResult, afterFirstResult)) =>
+      case Some((firstResult, afterFirstResult)) => //if you can parse one try to parse others
         zeroOrMore(parser)(afterFirstResult) match {
           case Some((otherResults, afterOtherResults)) =>
-            Some((firstResult :: otherResults, afterOtherResults))
+            Some((firstResult :: otherResults, afterOtherResults)) //concatenating of the resulting lists
           case None =>
             None
         }
@@ -155,7 +155,7 @@ object ShuntingYard extends util.Combinators {
   //main function
   def parseAEWithShuntingYard(code: String): Int = {
 
-    stack = List()
+    stack = List() //free variables, because they are public and therefore contain old content
     resultStack = List()
 
     val step1 = tokenizeExpression(code)
@@ -209,9 +209,9 @@ object ShuntingYard extends util.Combinators {
                                                   case None =>
                                                     zeroOrMore(whitespace)(code) match {
                                                       case Some((firstResult, afterFResult)) => {
-                                                        //println("this is after first result: " + afterFResult)
+
                                                         if (!afterFResult.equals(code)) {
-                                                          //println("i tokenized this: " + afterFResult)
+
                                                           tokenizeExpression(afterFResult)
                                                         } else {
                                                           List.empty
@@ -250,13 +250,13 @@ object ShuntingYard extends util.Combinators {
   //2.convert to reverse polish
   def convertToReversePolish(tokenList: List[Token]): Queue[Token] = {
     if (tokenList.isEmpty) { //every token has been used
-      //pop everthing from stack to queue
+      //pop everything from stack to queue
 
-      var queue = Queue[Token]()
-      //println("stack state" + stack)
+      var queue = Queue[Token]() //buffer for new queue content
+
       if (!stack.isEmpty) {
         queue = queue.enqueue(stack.filter(opt =>{
-        opt.isInstanceOf[Operator] && !opt.asInstanceOf[Operator].code.equals("then") //do not push "then" Token to output queue
+        opt.isInstanceOf[Operator]  //do only push operator Token to output queue
         }))
 
         while (!stack.isEmpty) {
@@ -269,7 +269,7 @@ object ShuntingYard extends util.Combinators {
 
       tokenList.head match {
         case number: Number =>
-          return Queue[Token]().enqueue(number) ++ convertToReversePolish(tokenList.tail)
+          return Queue[Token]().enqueue(number) ++ convertToReversePolish(tokenList.tail) //just put it to output queue
 
 
         case cOpt: Operator => //Token is operator
@@ -284,7 +284,7 @@ object ShuntingYard extends util.Combinators {
               while (!stackIsEmpty && stack.head.isInstanceOf[Operator]
                 && otherOperator.levelOfPersistence >= cOpt.levelOfPersistence && !cOpt.code.equals("if")) { //"if" is never allowed to push another operator away
 
-                println("current operator " + cOpt + "other op: " + otherOperator)
+
 
                 outPut = outPut.enqueue(otherOperator)
                 //pop other
@@ -305,9 +305,9 @@ object ShuntingYard extends util.Combinators {
           //push current token to stack
           stack = cOpt :: stack
 
-          val fusion = outPut ++ convertToReversePolish(tokenList.tail) //concatinate outputQueue with future OutputQueue
+          val resultQ = outPut ++ convertToReversePolish(tokenList.tail) //concatenate outputQueue with future OutputQueue
 
-          return fusion
+          return resultQ
 
         case bracket: Bracket =>
           var outPut = Queue[Token]()
@@ -317,7 +317,7 @@ object ShuntingYard extends util.Combinators {
             return convertToReversePolish(tokenList.tail)
 
           } else {
-            //TODO catch if no match bracket
+
             if (!stack.isEmpty) {
               //if stack is not empty
               var popOperator: Boolean = false
@@ -337,14 +337,14 @@ object ShuntingYard extends util.Combinators {
 
                 otherToken = stack.head
                 if (otherToken.isInstanceOf[Bracket]) {
-                  // has to be leftbracket because we never push rightbracket to the stack
+                  // has to be left bracket because we never push right bracket to the stack
                   popOperator = false
                 }
 
               }
-              // pop left bracket -> has to be left bracket now beacuse we popped everything before it
+              // pop left bracket -> has to be left bracket now because we popped everything before it
               if (otherToken.asInstanceOf[Bracket].isLeftBracket) {
-                //pop leftbracket and discard
+                //pop left bracket and discard it
                 stack = stack.tail
               }
             }
@@ -358,7 +358,7 @@ object ShuntingYard extends util.Combinators {
             /*CASE FOR THEN */
             if(com.code.equals("then")){
               //pop everything until if from stack, but keep if on the stack
-              println("then was used")
+
 
               while (!stackIsEmpty && !stack.head.asInstanceOf[Operator].code.equals("if")){
                 //push to queue
@@ -372,10 +372,10 @@ object ShuntingYard extends util.Combinators {
             if(com.code.equals("else")){
               //this one is for nested if-then-else. It is important to know when on of these exp ends. So else is needed on stack
               if(stack.head.isInstanceOf[Comment] && stack.head.asInstanceOf[Comment].code.equals("else")){
-                //push everything from stack to queue unti a "if" operator has been reached.
+                //push everything from stack to queue until a "if" operator has been reached.
                 //"then" should not be pushed
 
-                println("special else")
+
                 stack = stack.tail //first throw else away
 
                 while(!stackIsEmpty && stack.head.isInstanceOf[Operator] && !stack.head.asInstanceOf[Operator].code.equals("if")){
@@ -393,7 +393,7 @@ object ShuntingYard extends util.Combinators {
                 stack = stack.tail//pop from stack
               }else{
                 //normal else -> push to queue until "if" token
-                println("normal else!")
+
                 while (!stackIsEmpty && !stack.head.asInstanceOf[Operator].code.equals("if")){
                   //push to queue
                   outPut = outPut.enqueue(stack.head)
@@ -418,16 +418,20 @@ object ShuntingYard extends util.Combinators {
 
   /*
   * The Problematic of if-then-else:
-  * First these three parts are depending on each other. In my research i figured out, that it would be the best
-  * if i summarize all these parts to one operator called "ifCondition". I still have tokens for if then and else.
-  * But only the if token becomes an operator because its importen. then and else are comments. they will not appear in
-  * the outputQueue but they have an logical effect on the stack. Because they both are defining their spaces, they need
-  * rules how they should effect the stack:
-  * +"Then" give the right border of the if condition, so when it appears all the content of the condition should be
-  * put in the outputqueue
-  * +"Else* builds the right corner of the "then" answer, so it should put everything of this to the queue. if another else sits already
-  * on the stack, that means it is an nested condtion. so the other if-then-else span has to be put to the queue first.
-  * It is important, that else is saved on the stack instead of the other else and that then is never saved on the stack.
+  * First problem: these three parts ("if", "then", "else") are depending on each other. Much similar to brackets
+  * they are separating the expression into logical spaces. In my research i figured out, that it would be the best
+  * if i summarize all these parts to one operator called "ifCondition". This operator needs three operands
+  * (the condition, the then and the else case). "if", "then" and "else" are all read as tokens, but "then" and "else"
+  * are only comments, so they will never appear in the outputQueue or reverse polish.
+  * But "else" and "then" are still needed for the operator stack. "else" even will be pushed on the stack, thus it
+  * signalizes the end of the if clause.
+  * Rules how they should effect the stack:
+  * +"then" give the right border of the if condition, so when it appears all the content of the condition should be
+  * pushed to the output queue and popped from the operator stack.
+  * +"else" stands for the right corner of the "then" answer and the beginning of the "else" result,
+  * so it should put everything form top of the stack to the next "if" to the queue. if another "else" sits already
+  * on top of the stack, it means that it is an nested condition. In this case the other if-then-else span has to be put to the queue first.
+  * It is important, that "else" is saved on the stack instead of the other "else" and that "then" is never saved on the stack.
   * */
 
   var resultStack = List[Token]()
@@ -435,26 +439,23 @@ object ShuntingYard extends util.Combinators {
   //3.translate reverse polish and calculate the result
   def translateRPToResultStack(outputQueue: Queue[Token]): List[Token] = {
     //it contains on last token, that is a number an contains the answer
-    println("queue to translate " + outputQueue)
+
     outputQueue.head match {
       case num: Number => // push it to resultStack
         resultStack = num :: resultStack //push
-      var remainQ = outputQueue.tail //pop from queue
+         //pop from queue
 
-        if (!remainQ.isEmpty) {
-          println("remaining Queue after numbers " + remainQ)
+        if (!outputQueue.tail.isEmpty) {
           //continue on remaining operators
-          return translateRPToResultStack(remainQ) ::: resultStack
+          return translateRPToResultStack(outputQueue.tail) ::: resultStack
         }
         return resultStack
 
 
       case opt: Operator => //pop needed amount of operators from resultStack, perform operation an push result back on resultStack
-        //println("Operator Info : " + opt.code + opt.numberOfOperands)
+
         if (opt.numberOfOperands == 2) {
           //pop two operands from stack
-          println("My resultStack " + resultStack)
-
           val lhs = resultStack.head.asInstanceOf[Number]
           resultStack = resultStack.tail //pop
           val rhs = resultStack.head.asInstanceOf[Number]
@@ -472,8 +473,7 @@ object ShuntingYard extends util.Combinators {
           }
         }
         if(opt.numberOfOperands == 3){
-
-          println("operator: " + opt + "current Stack" + resultStack)
+          //pop three operands from stack
 
           val resultElse = resultStack.head.asInstanceOf[Number]
           resultStack = resultStack.tail //pop
@@ -512,7 +512,7 @@ object ShuntingYard extends util.Combinators {
   }
 
   def eval(lhs: Number, rhs: Number, operator: Operator): Int = {
-    println("operator " + operator.code)
+
     if (operator.code equals "+") {
       return lhs.code.toInt + rhs.code.toInt
     }
@@ -524,11 +524,11 @@ object ShuntingYard extends util.Combinators {
       return lhs.code.toInt * rhs.code.toInt
     }
     if (operator.code equals "/") {
-      return rhs.code.toInt / lhs.code.toInt
+      return rhs.code.toInt / lhs.code.toInt //invert to save left to right importance
     }
     if (operator.code equals "^") {
 
-      return math.pow(rhs.code.toInt , lhs.code.toInt).toInt
+      return math.pow(rhs.code.toInt , lhs.code.toInt).toInt //invert to save left to right importance
     }
     if (operator.code equals "=="){
       if(lhs.code equals rhs.code){
@@ -546,7 +546,7 @@ object ShuntingYard extends util.Combinators {
         //lhs is the condition
         //mid is then
         //rhs is else
-      if(lhs.code equals "1"){
+      if(lhs.code equals "1"){ //"1" stands for boolean value true
         return mid.code.toInt
       }else{
         return rhs.code.toInt
@@ -556,7 +556,7 @@ object ShuntingYard extends util.Combinators {
     return 0
   }
 
-  def extractResultFromResultStack(rStack: List[Token]): Int = {
+  def extractResultFromResultStack(rStack: List[Token]): Int = { //simple give back the remaining result from stack
     val num = rStack.head
 
     return num.asInstanceOf[Number].code.toInt
