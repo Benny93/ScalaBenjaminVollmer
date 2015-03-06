@@ -10,7 +10,7 @@ import scala.collection.immutable.Queue
 object ShuntingYard extends util.Combinators {
 
   /*
-  * In this final project Djikstras shunting yard algorithm will be implemented.
+  * In this final project Dijkstra's shunting yard algorithm will be implemented.
   *
   * Basically in ShuntingYard we want to go from infix notation to reverse polish.
   *
