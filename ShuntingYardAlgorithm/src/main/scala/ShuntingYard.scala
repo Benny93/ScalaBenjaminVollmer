@@ -82,10 +82,10 @@ object ShuntingYard extends util.Combinators {
   * For things like If-then-Else this algorithm has to be advanced as i will show later.
   *
   * Problems to avoid:
-  * If the tokens on the STACK ran out while searching for the left side bracket, there is a bracket mismatch. like in an
-  * example "5+6)" or "(5+6) + 5)" where the right bracket has no left bracket to match.
+  * If the tokens on the STACK ran out while searching for the left outer bracket, there is a bracket mismatch.As an
+  * example: "5+6)" or "(5+6) + 5)". Here the right bracket has no left bracket to match.
   *
-  *On the other hand. If the algorithm finds left brackets whilst the final operator popping. We have unmatched left "brackets" like in
+  *Also if the algorithm finds left brackets whilst it is pooping the final operators. We have unmatched left brackets like in
   * "(5+6" or "((5+6)+3".
   *
   * Operators need a notion of associativity whether the have to stand left or right in the expression.
@@ -416,23 +416,24 @@ object ShuntingYard extends util.Combinators {
     }
   }
 
-  /*
-  * The Problematic of if-then-else:
-  * First problem: these three parts ("if", "then", "else") are depending on each other. Much similar to brackets
-  * they are separating the expression into logical spaces. In my research i figured out, that it would be the best
-  * if i summarize all these parts to one operator called "ifCondition". This operator needs three operands
-  * (the condition, the then and the else case). "if", "then" and "else" are all read as tokens, but "then" and "else"
-  * are only comments, so they will never appear in the outputQueue or reverse polish.
-  * But "else" and "then" are still needed for the operator stack. "else" even will be pushed on the stack, thus it
-  * signalizes the end of the if clause.
-  * Rules how they should effect the stack:
-  * +"then" give the right border of the if condition, so when it appears all the content of the condition should be
+  
+   /*
+  * The problems of if-then-else case:
+  * First problem: The three parts ("if", "then", "else") are depending on each other. Much similar to brackets
+  * they are separating the expression into logical spaces. In my research I figured out, that it would be best to summarize all these parts into one operator called "ifCondition". This operator needs three operands
+  * (the condition-, the then- and the else-case). "If", "then" and "else" are all read as tokens, but "then" and "else"
+  * are only comments, so they will never appear in the outputQueue or in  reverse polish.
+  * But "else" and "then" are still needed for the operator stack. "Else" will even be pushed onto the stack, thus it
+  * signalizes the end of the if-clause.
+  * Rules how they should affect the stack:
+  * +"then" gives the right border of the if-condition, so when it appears all the content of the condition should be
   * pushed to the output queue and popped from the operator stack.
   * +"else" stands for the right corner of the "then" answer and the beginning of the "else" result,
-  * so it should put everything form top of the stack to the next "if" to the queue. if another "else" sits already
-  * on top of the stack, it means that it is an nested condition. In this case the other if-then-else span has to be put to the queue first.
+  * so it should put everything from the top of the stack to the next "if" to the queue. If another "else" is already
+  * on top of the stack, it means a nested condition. In this case the other if-then-else span has to be put to the queue first.
   * It is important, that "else" is saved on the stack instead of the other "else" and that "then" is never saved on the stack.
   * */
+
 
   var resultStack = List[Token]()
 
