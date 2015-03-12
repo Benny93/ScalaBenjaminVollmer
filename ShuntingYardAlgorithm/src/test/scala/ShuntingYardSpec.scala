@@ -49,7 +49,7 @@ class ShuntingYardSpec extends FlatSpec {
     }
 */
 
-/*
+
 
     "parseAEWithShuntingYard" should "parse and eval correctly" in {
       assert(
@@ -80,7 +80,7 @@ class ShuntingYardSpec extends FlatSpec {
         parseAEWithShuntingYard(" 3 -   6 / 3  /  2 ") == 2
       )
     }
-*/
+
   "parseAEWithShuntingYard" should "be able to parse if-then-else"in{
 
     assert(
@@ -113,6 +113,16 @@ class ShuntingYardSpec extends FlatSpec {
     assert(
       parseAEWithShuntingYard("2*(8-6)^2") == 8
     )
+  }
+
+  "tokenize2" should "tokenize expressions" in {
+    assert(
+    tokenizeExpression2("1+1") == List(Number("1"),Operator("+",2,2),Number("1"))
+    )
+    println("here some tokenizazion")
+    println("2   +2"+ " -> " + tokenizeExpression2("2   +2"))
+    println("245"+ " -> " + tokenizeExpression2("245"))
+    println("if 3 == 4 then 3 else 4"+ " -> " + tokenizeExpression2("if 3 == 4 then 3 else 4"))
   }
 
 }

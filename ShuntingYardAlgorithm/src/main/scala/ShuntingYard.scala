@@ -132,25 +132,32 @@ object ShuntingYard extends util.Combinators {
   val leftBracket = bracketParser("(")
   val rightBracket = bracketParser(")")
   val whitespace = whiteSpaceParser(" ")
+
   val thenKeyword = commentParser("then")
   val elseKeyword = commentParser("else")
 
 
-  def zeroOrMore[Token](parser: => Parser[Token]): Parser[List[Token]] = {
-    input => parser(input) match {
-      // parse failed; return empty list
+  //Here are the needed parsers for the combinator. It uses the choice function to find the fitting token for each character.
+  def chooseToken:Parser[Token] = tOperator | tBracket | tComment | number |  whitespace
+  def tOperator:Parser[Token] = plus | minus | mul | div | ifCondition | equals | pow
+  def tBracket:Parser[Token] = leftBracket | rightBracket
+  def tComment:Parser[Token] = thenKeyword | elseKeyword
+
+  def tokenChain(parser: => Parser[Token]):Parser[List[Token]] = {
+    //tOperator | tBracket | tComment | number | whitespace
+    input => parser(input) match{
       case None =>
         Some((List.empty, input))
-      case Some((firstResult, afterFirstResult)) => //if you can parse one try to parse others
-        zeroOrMore(parser)(afterFirstResult) match {
-          case Some((otherResults, afterOtherResults)) =>
-            Some((firstResult :: otherResults, afterOtherResults)) //concatenating of the resulting lists
+      case Some((firstResults,afterFirstResult)) =>
+        tokenChain(parser)(afterFirstResult) match{
+          case Some((otherResults, afterOtherResults))=>
+            Some((firstResults :: otherResults, afterOtherResults))
           case None =>
             None
         }
-
     }
   }
+
 
   //main function
   def parseAEWithShuntingYard(code: String): Int = {
@@ -158,7 +165,7 @@ object ShuntingYard extends util.Combinators {
     stack = List() //free variables, because they are public and therefore contain old content
     resultStack = List()
 
-    val step1 = tokenizeExpression(code)
+    val step1 = tokenizeExpression2(code)
     try {
     val step2 = convertToReversePolish(step1)
     val step3 = translateRPToResultStack(step2)
@@ -169,75 +176,28 @@ object ShuntingYard extends util.Combinators {
     return 0
   }
 
+
+
+  /*new implementation of tokenize*/
+  /*I created a much shorter new implementation of tokenize, which is using combinators and works simmilar like an
+  * zero or more parser.
+  *
+  * */
+
   //1. get all the tokens
-  def tokenizeExpression(code: String): List[Token] = {
-    number(code) match {
-      case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-      case None =>
-        plus(code) match {
-          case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-          case None =>
-            minus(code) match {
-              case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-              case None =>
-                mul(code) match {
-                  case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                  case None =>
-                    div(code) match {
-                      case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                      case None =>
-                        pow(code) match{
-                          case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                          case None=>
-                            leftBracket(code) match {
-                              case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                              case None =>
-                                rightBracket(code) match {
-                                  case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                                  case None =>
-                                    ifCondition(code) match {
-                                      case Some((first, last)) => List(first) ::: tokenizeExpression(last)
-                                      case None =>
-                                        equals(code) match{
-                                          case Some((first, last)) => List(first) ::: tokenizeExpression(last)
-                                          case None =>
-                                            thenKeyword(code) match {
-                                              case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                                              case None =>
-                                                elseKeyword(code) match {
-                                                  case Some((first, rest)) => List(first) ::: tokenizeExpression(rest)
-                                                  case None =>
-                                                    zeroOrMore(whitespace)(code) match {
-                                                      case Some((firstResult, afterFResult)) => {
-
-                                                        if (!afterFResult.equals(code)) {
-
-                                                          tokenizeExpression(afterFResult)
-                                                        } else {
-                                                          List.empty
-                                                        }
-
-                                                      }
-                                                      case None => List.empty
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                    }
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
+  def tokenizeExpression2(code:String):List[Token]={
+    tokenChain(chooseToken)(code) match {
+      case Some((tokens,rest))if rest.isEmpty => tokens.filter(p =>{
+        !p.isInstanceOf[Comment] || p.isInstanceOf[Comment] && !p.asInstanceOf[Comment].code.equals(" ") //Whitespaces should be ignored
+        })
+      case Some((tokens,rest)) if !rest.nonEmpty=>
+        sys.error("Not an expression: " + code)
+      case None => sys.error("Not an expression " + code)
 
     }
-
   }
+
+
 
 
   //Stack is an inelegant and potentially poorly-performing wrapper
@@ -416,7 +376,7 @@ object ShuntingYard extends util.Combinators {
     }
   }
 
-  
+
    /*
   * The problems of if-then-else case:
   * First problem: The three parts ("if", "then", "else") are depending on each other. Much similar to brackets
