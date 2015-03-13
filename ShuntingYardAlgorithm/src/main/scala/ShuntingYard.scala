@@ -649,11 +649,16 @@ object ShuntingYard extends util.Combinators {
           branch.children.count(p => p.isInstanceOf[Tree]) match {
             case 2 =>
               branch.symbol match {
-                case '+ => evalAST(branch.children(0)) +  evalAST(branch.children(1))
-                case '- => evalAST(branch.children(1)) -  evalAST(branch.children(0))
-                case '/ => evalAST(branch.children(1)) /  evalAST(branch.children(0))
-                case '* => evalAST(branch.children(1)) *  evalAST(branch.children(0))
-                case '^ => math.pow( evalAST(branch.children(1)),  evalAST(branch.children(0))).toInt
+                case '+ =>
+                  evalAST(branch.children(0)) +  evalAST(branch.children(1))
+                case '- =>
+                  evalAST(branch.children(1)) -  evalAST(branch.children(0))
+                case '/ =>
+                  evalAST(branch.children(1)) /  evalAST(branch.children(0))
+                case '* =>
+                  evalAST(branch.children(1)) *  evalAST(branch.children(0))
+                case '^ =>
+                  math.pow( evalAST(branch.children(1)),  evalAST(branch.children(0))).toInt
                 case '== =>
                   if( evalAST(branch.children(1)) ==  evalAST(branch.children(0))){
                   return 1
