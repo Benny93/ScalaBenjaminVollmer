@@ -523,4 +523,157 @@ object ShuntingYard extends util.Combinators {
     return num.asInstanceOf[Number].code.toInt
   }
 
+  /*Abstract syntax tree*/
+
+  /*To get abstract syntax trees from shunting yard, I thought it would be best to take the resulting reverse
+  * polish of the algorithm and build a abstract syntax tree from it. That way we do not need any fancy grammar to define.
+  * This will work similar to translating reverse polish except that now parts of the tree like leafs and
+  * branches will be pushed to the resultStack.
+  * The last tree element in the resultStack will be the root of the tree, containing everything needed.
+  * */
+
+  /*First we need the classic tree elements.
+  * To make this documentation more readable I will initialize them here and not at the top of the ShuntingYard Object.
+  * */
+
+  sealed trait Tree
+  case class Branch(symbol: Symbol,children:List[Tree]) extends Tree//for logical operators
+  case class Leaf(symbol: Symbol,code:String) extends Tree //For numbers
+
+  def parseAEWithSYandTrees(code:String): Int ={
+    val step1 = createTreeWithSY(code)
+    val step2 = evalAST(step1)
+    return step2
+  }
+
+  def createTreeWithSY(code:String):Tree = {
+    val step1 = tokenizeExpression2(code)
+    val step2 = convertToReversePolish(step1)
+    val step3 = growASTfromReversePolish(step2)
+
+    println("Your Tree: \n" + step3.head.treeString)
+    return step3.head
+  }
+
+  //I again need a stack for this so  here is a treeStack
+  var treeStack = List[Tree]()
+
+  //List[Tree] is the result stack with the tree in it
+  def growASTfromReversePolish(outputQueue: Queue[Token]):List[Tree]= {
+    outputQueue.head match{
+      case com:Comment=>
+        if(!outputQueue.tail.isEmpty){
+          growASTfromReversePolish(outputQueue.tail) //skip comment
+        }else{
+          List.empty //do not create anything from a comment.
+        }
+
+      //if it is a number create a Leaf from it
+      case num:Number =>
+        treeStack = Leaf('num,num.code) :: treeStack //push the leaf to stack
+        if (!outputQueue.tail.isEmpty){
+          return  growASTfromReversePolish(outputQueue.tail) ::: treeStack
+        }else{
+          return treeStack
+        }
+
+       // it can not be an bracket anymore but we need to treat this for the compiler to get rid of some warnings
+      case b:Bracket=>
+        if(!outputQueue.tail.isEmpty){
+          growASTfromReversePolish(outputQueue.tail) //skip bracket
+        }else{
+          List.empty //do not create anything from a bracket.
+        }
+
+
+        //if it is an operator (a little bit more tricky)
+
+      case opt:Operator=>
+        //We want now to:
+        //1. pop all needed operands from stack (they are leafs or branches)
+        //2.combine them as a branch under the operator
+        //3.push that branch back to the stack
+
+        //popping
+        if(opt.numberOfOperands == 2){
+          //pop two operands from stack
+          val lhs = treeStack.head
+          treeStack = treeStack.tail //pop
+          val rhs = treeStack.head
+          treeStack = treeStack.tail //pop
+
+          treeStack = Branch(Symbol(opt.code), List(lhs,rhs)) :: treeStack //push back on the stack
+
+           if (!outputQueue.tail.isEmpty) {
+             return growASTfromReversePolish(outputQueue.tail) ::: treeStack
+           }else{
+             return treeStack
+           }
+        }
+
+        if(opt.numberOfOperands == 3){
+          //pop two operands from stack
+          val resultElse = treeStack.head
+          treeStack = treeStack.tail //pop
+          val resultThen = treeStack.head
+          treeStack = treeStack.tail //pop
+          val condition = treeStack.head
+          treeStack = treeStack.tail //pop
+
+          treeStack = Branch(Symbol(opt.code), List(condition,resultThen,resultElse)) :: treeStack //push back on the stack
+
+          if (!outputQueue.tail.isEmpty) {
+            return growASTfromReversePolish(outputQueue.tail) ::: treeStack
+          }else{
+            return treeStack
+          }
+        }
+
+
+        return treeStack.tail //no known operator
+
+    }
+  }
+    /*No that we have created a AST tree, we want to evaluate it and get the result*/
+
+    def evalAST(ast:Tree):Int ={
+      ast match {
+        case branch:Branch =>
+          //no we need to know all the possible operations. This is a very weak point, because for every operator
+          //we add, we have to rewrite this code
+          branch.children.count(p => p.isInstanceOf[Tree]) match {
+            case 2 =>
+              branch.symbol match {
+                case '+ => evalAST(branch.children(0)) +  evalAST(branch.children(1))
+                case '- => evalAST(branch.children(1)) -  evalAST(branch.children(0))
+                case '/ => evalAST(branch.children(1)) /  evalAST(branch.children(0))
+                case '* => evalAST(branch.children(1)) *  evalAST(branch.children(0))
+                case '^ => math.pow( evalAST(branch.children(1)),  evalAST(branch.children(0))).toInt
+                case '== =>
+                  if( evalAST(branch.children(1)) ==  evalAST(branch.children(0))){
+                  return 1
+                }else{
+                  return 0
+                }
+              }
+
+            case 3=>
+              if(evalAST(branch.children(0)) == 1){
+                evalAST(branch.children(1))
+              }else{
+                evalAST(branch.children(2))
+              }
+          }
+
+
+        case leaf:Leaf =>
+          //return number
+          leaf.code.toInt
+      }
+    }
+
+
+
+
+
 }

@@ -10,23 +10,7 @@ import scala.collection.immutable.Queue
 
 class ShuntingYardSpec extends FlatSpec {
 /*
-    "List Testing" should "give an example of Listtypes" in{
-      val stack = List(1,2,3)
-      val stack2 = List(4,5,6)
-      val res = stack2 ::: stack
-      //println("concatination of two stacks done right: " + res)
-      val e3 = eval(Number("2"),Number("2"),Operator("^",2,4))
-      println ("2^2: " + e3)
-    }
 
-    "zeroOrMore" should "return if there are zeroOrMore ws" in {
-      val wsP = whiteSpaceParser(" ")
-
-      assert(
-        zeroOrMore(wsP)("   hallo") == Some((List(Comment(" "), Comment(" "), Comment(" ")),"hallo")),
-        zeroOrMore(wsP)("d   hallo") == None
-      )
-    }
 
     "tokenizeExpression" should "tokenize an Expression" in {
       assert(tokenizeExpression("456") == List(Number("456")))
@@ -123,6 +107,53 @@ class ShuntingYardSpec extends FlatSpec {
     println("2   +2"+ " -> " + tokenizeExpression2("2   +2"))
     println("245"+ " -> " + tokenizeExpression2("245"))
     println("if 3 == 4 then 3 else 4"+ " -> " + tokenizeExpression2("if 3 == 4 then 3 else 4"))
+  }
+
+  /*Testing the AST*/
+
+  "growAST" should "create AST from reverse polish notation" in {
+    println("Tree examples: ")
+
+    assert(
+      createTreeWithSY("1 + 1") == Branch('+,List(Leaf('num,"1"), Leaf('num,"1")))
+    )
+    assert(
+    createTreeWithSY("if 3 == 4 then 3 else 4") == Branch('if,List(Branch('==,List(Leaf('num,"4"), Leaf('num,"3"))), Leaf('num,"3"), Leaf('num,"4")))
+    )
+  }
+
+  "parseAEwithSYandTrees" should "give the correct solution" in {
+    assert(
+      parseAEWithSYandTrees("9+24/(7-3)") == 15
+    )
+    assert(
+      parseAEWithSYandTrees("3+3*3") == 12
+    )
+    assert(
+      parseAEWithSYandTrees("(3+3)*3") == 18
+    )
+    assert(
+      parseAEWithSYandTrees("45") == 45
+    )
+    assert(
+      parseAEWithSYandTrees("60/5/4") == 3
+    )
+    assert(
+      parseAEWithSYandTrees("60/5/4/3") == 1
+    )
+    assert(
+      parseAEWithSYandTrees("2*2*2") == 8
+    )
+    assert(
+      parseAEWithSYandTrees("3-2+4-2") == 3
+    )
+    assert(
+      parseAEWithSYandTrees(" 3 -   6 / 3  /  2 ") == 2
+    )
+    assert(
+      parseAEWithSYandTrees("if 1 == 2 then 3+5 else if 4 == 4 then if 5 == 5 then 2*(9-6) else 7 else 8") == 6
+
+    )
   }
 
 }
