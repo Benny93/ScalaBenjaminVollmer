@@ -646,6 +646,7 @@ object ShuntingYard extends util.Combinators {
         case branch:Branch =>
           //no we need to know all the possible operations. This is a very weak point, because for every operator
           //we add, we have to rewrite this code
+          //for some reason github marks this part red.
           branch.children.count(p => p.isInstanceOf[Tree]) match {
             case 2 =>
               branch.symbol match {
@@ -668,10 +669,13 @@ object ShuntingYard extends util.Combinators {
               }
 
             case 3=>
-              if(evalAST(branch.children(0)) == 1){
-                evalAST(branch.children(1))
-              }else{
-                evalAST(branch.children(2))
+              branch.symbol match {
+                case 'if =>
+                if (evalAST (branch.children (0) ) == 1) {
+                evalAST (branch.children (1) )
+                } else {
+                evalAST (branch.children (2) )
+                }
               }
           }
 

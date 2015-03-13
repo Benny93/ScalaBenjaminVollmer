@@ -39,8 +39,8 @@
       <file leaf-file-name="ShuntingYard.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50549453" vertical-offset="9533" max-vertical-offset="10335">
-              <caret line="660" column="21" selection-start-line="660" selection-start-column="21" selection-end-line="660" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.22291994" vertical-offset="9533" max-vertical-offset="10395">
+              <caret line="648" column="55" selection-start-line="648" selection-start-column="55" selection-end-line="648" selection-end-column="55" />
               <folding>
                 <element signature="e#59#72#0" expanded="true" />
               </folding>
@@ -821,8 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/ShuntingYard.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50549453" vertical-offset="9533" max-vertical-offset="10335">
-          <caret line="660" column="21" selection-start-line="660" selection-start-column="21" selection-end-line="660" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.22291994" vertical-offset="9533" max-vertical-offset="10395">
+          <caret line="648" column="55" selection-start-line="648" selection-start-column="55" selection-end-line="648" selection-end-column="55" />
           <folding>
             <element signature="e#59#72#0" expanded="true" />
           </folding>
