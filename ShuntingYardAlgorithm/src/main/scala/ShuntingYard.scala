@@ -105,6 +105,8 @@ object ShuntingYard extends util.Combinators {
 
   case class Comment(code: String) extends Token
 
+
+
   //Parsing basics for tokenize
   def numberParser(): Parser[Token] =
     parseRegex("[0-9]+") ^^ { x => Number(x)}
@@ -135,6 +137,7 @@ object ShuntingYard extends util.Combinators {
 
   val thenKeyword = commentParser("then")
   val elseKeyword = commentParser("else")
+
 
 
   //Here are the needed parsers for the combinator. It uses the choice function to find the fitting token for each character.
@@ -541,12 +544,14 @@ object ShuntingYard extends util.Combinators {
   case class Leaf(symbol: Symbol,code:String) extends Tree //For numbers
 
   def parseAEWithSYandTrees(code:String): Int ={
+
     val step1 = createTreeWithSY(code)
     val step2 = evalAST(step1)
     return step2
   }
 
   def createTreeWithSY(code:String):Tree = {
+    treeStack = List() //clear old stack
     val step1 = tokenizeExpression2(code)
     val step2 = convertToReversePolish(step1)
     val step3 = growASTfromReversePolish(step2)
@@ -634,7 +639,7 @@ object ShuntingYard extends util.Combinators {
 
     }
   }
-    /*No that we have created a AST tree, we want to evaluate it and get the result*/
+    /*Now that we have created a AST tree, we want to evaluate it and get the result*/
 
     def evalAST(ast:Tree):Int ={
       ast match {
@@ -671,9 +676,6 @@ object ShuntingYard extends util.Combinators {
           leaf.code.toInt
       }
     }
-
-
-
 
 
 }
