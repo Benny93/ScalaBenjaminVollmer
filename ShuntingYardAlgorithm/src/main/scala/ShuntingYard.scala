@@ -239,7 +239,7 @@ object ShuntingYard extends util.Combinators {
           var outPut = Queue[Token]()
           if (!stack.isEmpty) {
             //if stack is not empty
-            var otherToken: Token = stack.head //first other Token on stack
+            val otherToken: Token = stack.head //first other Token on stack
             if (otherToken.isInstanceOf[Operator]) {
               var otherOperator: Operator = otherToken.asInstanceOf[Operator]
               var stackIsEmpty: Boolean = false
@@ -685,6 +685,21 @@ object ShuntingYard extends util.Combinators {
           leaf.code.toInt
       }
     }
+
+  /*To make this implementation also work with n operands for an operator, the operator needs to know for
+  * itself how it should get evaluated. That way it could pop as many operands from stack as it needs and
+  * then run its evaluating function on them.
+  * The popped operands could be saved in a list.
+  *
+  * Another obstacle with this would be tokenize. An operator that needs n operands needs at least n-1 keywords to separate
+  * the operands from each other. It also needs to know which keywords stands for the end of the operation.
+  * This is important because the expressions can get nested into each other.
+  *
+  * So giving Shunting Yard the ability to work with every imagined operator that needs any amount of operands is a really complex
+  * problem.
+  *
+  *
+  * */
 
 
 }
